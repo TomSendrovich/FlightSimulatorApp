@@ -4,11 +4,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"
+        xmlns:Views="clr-namespace:FlightSimulatorApp.Views"
         xmlns:local="clr-namespace:FlightSimulatorApp"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
         <!--Map default displaying is Ben Gurion Airport -->
         <m:Map x:Name="myMap" Center="32.000061,34.870609" ZoomLevel="12" CredentialsProvider="rZtMp9dgMbg51f0kMWW9~TmLCeERBkf8yE42EakRTwA~AnaXQia3keDOtXTcwXRbe_6PVi_qpD7xdts60xE7ZYLbQM_4EY9-cl9NmkQZ50Od"/>
+
+        <Views:Joystick/>
     </Grid>
 </Window>
