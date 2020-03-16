@@ -7,11 +7,24 @@
         xmlns:Views="clr-namespace:FlightSimulatorApp.Views"
         xmlns:local="clr-namespace:FlightSimulatorApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="MainWindow" Height="600" Width="800">
+    <DockPanel>
         <!--Map default displaying is Ben Gurion Airport -->
-        <m:Map x:Name="myMap" Center="32.000061,34.870609" ZoomLevel="12" CredentialsProvider="rZtMp9dgMbg51f0kMWW9~TmLCeERBkf8yE42EakRTwA~AnaXQia3keDOtXTcwXRbe_6PVi_qpD7xdts60xE7ZYLbQM_4EY9-cl9NmkQZ50Od"/>
+        <m:Map DockPanel.Dock="Left"
+               x:Name="map"
+               Width="400"
+               Center="32.000061,34.870609" 
+               ZoomLevel="12" 
+               CredentialsProvider="rZtMp9dgMbg51f0kMWW9~TmLCeERBkf8yE42EakRTwA~AnaXQia3keDOtXTcwXRbe_6PVi_qpD7xdts60xE7ZYLbQM_4EY9-cl9NmkQZ50Od"/>
 
-        <Views:Joystick/>
-    </Grid>
+        <Viewbox VerticalAlignment="Bottom"
+                 Height="300"
+                 Width="300">
+            <Views:Joystick  x:Name="joystick" 
+                             HorizontalAlignment="Right"
+                             VerticalAlignment="Bottom"/>
+        </Viewbox>
+
+
+    </DockPanel>
 </Window>
