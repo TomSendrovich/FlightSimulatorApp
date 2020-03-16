@@ -27,7 +27,8 @@ namespace FlightSimulatorApp.Views
 
         public void centerKnob_Completed(Object sender, EventArgs e)
         {
-
+            // Not developed yet.
+            throw new NotImplementedException();
         }
     }
 
