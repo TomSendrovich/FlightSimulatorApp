@@ -27,7 +27,7 @@ namespace FlightSimulatorApp.Views
 
         private Point firstPoint = new Point();
 
-        public void centerKnob_Completed(Object sender, EventArgs e)
+        private void centerKnob_Completed(Object sender, EventArgs e)
         {
             // Not developed yet.
             throw new NotImplementedException();
@@ -45,9 +45,9 @@ namespace FlightSimulatorApp.Views
         {
             if (e.LeftButton == MouseButtonState.Pressed)
             {
-                double x = e.GetPosition(this).X;
-                double y = e.GetPosition(this).Y;
-                if (Math.Sqrt(x*x + y * y) < Base.Width / 2)
+                double x = e.GetPosition(this).X - firstPoint.X;
+                double y = e.GetPosition(this).Y - firstPoint.Y;
+                if (Math.Sqrt(x * x + y * y) < Base.Width / 2)
                 {
                     knobPosition.X = x;
                     knobPosition.Y = y;
