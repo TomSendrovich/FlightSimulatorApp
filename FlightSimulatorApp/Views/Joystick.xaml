@@ -6,7 +6,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <Canvas  x:Name="Base" Margin="0" Width="340" Height="340">
+        <Canvas  x:Name="Base" Margin="50,0,0,100" Width="340" Height="340">
             <Ellipse HorizontalAlignment="Left" Height="340" VerticalAlignment="Top" Width="340">
                 <Ellipse.Fill>
                     <RadialGradientBrush>
@@ -134,5 +134,21 @@
                 </Canvas.Resources>
             </Canvas>
         </Canvas>
+
+        <!-- Throttle Slider -->
+        <Grid>
+            <Grid.LayoutTransform>
+                <RotateTransform Angle="90"/>
+            </Grid.LayoutTransform>
+            <Slider x:Name="ThrottleSlider" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Margin="0,0,100,0" TickPlacement="BottomRight" Value="50" TickFrequency="10" IsSnapToTickEnabled="True" Maximum="100"/>
+            <TextBlock x:Name="ThrottleText" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,100,-30" FontSize="30" >Throttle</TextBlock>
+        </Grid>
+
+        <!-- Rudder Slider -->
+        <Grid>
+            <Slider x:Name="RudderSlider" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Margin="50,0,0,50" TickPlacement="BottomRight" Value="50" TickFrequency="10" IsSnapToTickEnabled="True" Maximum="100" />
+            <TextBlock x:Name="RudderText" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="50,0,0,20" FontSize="30">Rudder</TextBlock>
+        </Grid>
+
     </Grid>
 </UserControl>
