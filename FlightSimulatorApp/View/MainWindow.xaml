@@ -1,10 +1,10 @@
-﻿<Window x:Class="FlightSimulatorApp.MainWindow"
+﻿<Window x:Class="FlightSimulatorApp.View.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"
-        xmlns:Views="clr-namespace:FlightSimulatorApp.Views"
+        xmlns:Controls="clr-namespace:FlightSimulatorApp.View.Controls"
         xmlns:local="clr-namespace:FlightSimulatorApp"
         mc:Ignorable="d"
         Title="MainWindow" Height="600" Width="800">
@@ -20,7 +20,7 @@
         <Viewbox VerticalAlignment="Bottom"
                  Height="300"
                  Width="300">
-            <Views:Joystick  x:Name="joystick" 
+            <Controls:Joystick  x:Name="joystick" 
                              HorizontalAlignment="Right"
                              VerticalAlignment="Bottom"/>
         </Viewbox>
