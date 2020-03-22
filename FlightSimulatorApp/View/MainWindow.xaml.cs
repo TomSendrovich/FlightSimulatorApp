@@ -31,7 +31,7 @@ namespace FlightSimulatorApp.View
             model.connect("127.0.0.1", 5402);
             model.start();
 
-            vm = new ViewModel(new Model(tcpClient));
+            vm = new ViewModel(model);
             DataContext = vm;
 
             InitializeComponent();
