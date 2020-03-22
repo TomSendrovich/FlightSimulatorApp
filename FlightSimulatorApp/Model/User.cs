@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
 
-namespace FlightSimulatorApp.Model
+namespace FlightSimulatorApp
 {
     //Test class from video 4.2
     public class User : INotifyPropertyChanged

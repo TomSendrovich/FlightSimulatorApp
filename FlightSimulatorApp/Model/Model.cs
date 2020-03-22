@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Net.Sockets;
 using System.Threading;
 
-namespace FlightSimulatorApp.Model
+namespace FlightSimulatorApp
 {
     class Model : IModel
     {
