@@ -77,7 +77,7 @@ namespace FlightSimulatorApp
                         responseData = System.Text.Encoding.ASCII.GetString(data, 0, bytes);
                         Console.WriteLine("Received: {0}", responseData);
 
-                        this.Heading = double.Parse(responseData);
+                        Heading = Double.Parse(responseData);
 
                         Thread.Sleep(250); //read the data in 4Hz
                     }
