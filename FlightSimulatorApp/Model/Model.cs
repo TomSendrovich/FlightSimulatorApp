@@ -107,5 +107,7 @@ namespace FlightSimulatorApp
                 this.PropertyChanged(this, new PropertyChangedEventArgs(PropName));
             }
         }
+
+        
     }
 }
