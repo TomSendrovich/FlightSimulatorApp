@@ -1,9 +1,6 @@
-﻿using FlightSimulatorApp;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -16,22 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace FlightSimulatorApp.View
+namespace FlightSimulatorApp.View.Controls
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for Dashboard.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class Dashboard : UserControl
     {
-        public MainWindow()
+        public Dashboard()
         {
-            TcpClient tcpClient = new TcpClient();
-            var model = new Model(tcpClient);
-            //model.connect("127.0.0.1", 5402);
-            //model.start();
-
             InitializeComponent();
-            
         }
     }
 }
