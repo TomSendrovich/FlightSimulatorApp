@@ -37,14 +37,14 @@ namespace FlightSimulatorApp
         }
         public void start()
         {
-            const string HEADING = "get /indicated-heading-deg\n";
-            const string VERTICAL_SPEED = "get /gps_indicated-vertical-speed\n";
-            const string GROUND_SPEED = "get /gps_indicated-ground-speed-kt\n";
-            const string AIR_SPEED = "get /airspeed-indicator_indicated-speed-kt\n";
-            const string ALTITUDE = "get /gps_indicated-altitude-ft\n";
-            const string ROLL = "get /attitude-indicator_internal-roll-deg\n";
-            const string PITCH = "get /attitude-indicator_internal-pitch-deg\n";
-            const string ALTIMETER = "get /altimeter_indicated-altitude-ft\n";
+            const string HEADING = "get /instrumentation/heading-indicator/indicated-heading-deg\n";
+            const string VERTICAL_SPEED = "get /instrumentation/gps/indicated-vertical-speed\n";
+            const string GROUND_SPEED = "get /instrumentation/gps/indicated-ground-speed-kt\n";
+            const string AIR_SPEED = "get /instrumentation/airspeed-indicator/indicated-speed-kt\n";
+            const string ALTITUDE = "get /instrumentation/gps/indicated-altitude-ft\n";
+            const string ROLL = "get /instrumentation/attitude-indicator/internal-roll-deg\n";
+            const string PITCH = "get /instrumentation/attitude-indicator/internal-pitch-deg\n";
+            const string ALTIMETER = "get /instrumentation/altimeter/indicated-altitude-ft\n";
 
             new Thread(delegate ()
             {
