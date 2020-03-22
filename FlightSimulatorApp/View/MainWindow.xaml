@@ -24,15 +24,16 @@
         <m:Map Grid.RowSpan="2"
                x:Name="map"
                Center="32.000061,34.870609" 
+               Width="430"
                ZoomLevel="12" 
                CredentialsProvider="rZtMp9dgMbg51f0kMWW9~TmLCeERBkf8yE42EakRTwA~AnaXQia3keDOtXTcwXRbe_6PVi_qpD7xdts60xE7ZYLbQM_4EY9-cl9NmkQZ50Od"/>
 
         <Viewbox Grid.Column="1">
-            <Controls:Dashboard x:Name="dashboard" />
+            <Controls:Dashboard x:Name="dashboard" Width="350" />
         </Viewbox>
 
         <Viewbox Grid.Row="1" Grid.Column="1">
-            <Controls:Joystick  x:Name="joystick" />
+            <Controls:Joystick  x:Name="joystick" Width="500" />
         </Viewbox>
 
     </Grid>

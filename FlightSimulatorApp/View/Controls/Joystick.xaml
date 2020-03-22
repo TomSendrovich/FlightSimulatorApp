@@ -140,8 +140,8 @@
             <Grid.LayoutTransform>
                 <RotateTransform Angle="90"/>
             </Grid.LayoutTransform>
-            <Slider x:Name="ThrottleSlider" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Margin="0,0,100,0" TickPlacement="BottomRight" Value="50" TickFrequency="10" IsSnapToTickEnabled="True" Maximum="100"/>
-            <TextBlock x:Name="ThrottleText" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,100,-30" FontSize="30" >Throttle</TextBlock>
+            <Slider x:Name="ThrottleSlider" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Margin="0,0,100,50" TickPlacement="BottomRight" Value="50" TickFrequency="10" IsSnapToTickEnabled="True" Maximum="100"/>
+            <TextBlock x:Name="ThrottleText" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,100,20" FontSize="30" >Throttle</TextBlock>
         </Grid>
 
         <!-- Rudder Slider -->
