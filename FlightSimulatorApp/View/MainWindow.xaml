@@ -7,27 +7,33 @@
         xmlns:Controls="clr-namespace:FlightSimulatorApp.View.Controls"
         xmlns:local="clr-namespace:FlightSimulatorApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="1200">
-    <DockPanel>
+        Title="MainWindow" Height="600" Width="800">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
         <!--Map default displaying is Ben Gurion Airport -->
-        <m:Map DockPanel.Dock="Left"
+        <m:Map Grid.RowSpan="2"
                x:Name="map"
-               Width="400"
                Center="32.000061,34.870609" 
                ZoomLevel="12" 
                CredentialsProvider="rZtMp9dgMbg51f0kMWW9~TmLCeERBkf8yE42EakRTwA~AnaXQia3keDOtXTcwXRbe_6PVi_qpD7xdts60xE7ZYLbQM_4EY9-cl9NmkQZ50Od"/>
 
-        <Viewbox VerticalAlignment="Top"
-                 Height="300"
-                 Width="300">
-            <Controls:Dashboard  x:Name="dashboard" />
+        <Viewbox Grid.Column="1">
+            <Controls:Dashboard x:Name="dashboard" />
         </Viewbox>
 
-        <Viewbox VerticalAlignment="Bottom"
-                 Height="300"
-                 Width="300">
+        <Viewbox Grid.Row="1" Grid.Column="1">
             <Controls:Joystick  x:Name="joystick" />
         </Viewbox>
 
-    </DockPanel>
+    </Grid>
 </Window>
