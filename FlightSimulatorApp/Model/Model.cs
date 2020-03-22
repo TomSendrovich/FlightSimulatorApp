@@ -14,11 +14,12 @@ namespace FlightSimulatorApp
         TcpClient tcpClient;
         volatile Boolean stop;
 
-        private double heading;
+        private double heading, verticalSpeed, groundSpeed, airSpeed, altitude, roll, pitch, altimeter;
 
         //INotifyPropertyChanged implementation
         public event PropertyChangedEventHandler PropertyChanged;
 
+        //Constructor
         public Model(TcpClient tcpClient)
         {
             this.tcpClient = tcpClient;
@@ -29,13 +30,11 @@ namespace FlightSimulatorApp
         {
             tcpClient.Connect(ip, port);
         }
-
         public void disconnect()
         {
             stop = true;
             tcpClient.Close();
         }
-
         public void start()
         {
             const string HEADING = "get /indicated-heading-deg\n";
@@ -49,35 +48,39 @@ namespace FlightSimulatorApp
 
             new Thread(delegate ()
             {
+                string value;
+
+                //Test - set command
+                value = CheckParameter("set /indicated-heading-deg 5\n");
+                Heading = Double.Parse(value);
+
                 while (!stop)
                 {
                     try
                     {
-                        // Translate the passed message into ASCII and store it as a Byte array.
-                        Byte[] data = System.Text.Encoding.ASCII.GetBytes(HEADING);
+                        value = CheckParameter(HEADING);
+                        Heading = Double.Parse(value);
 
-                        // Get a client stream for reading and writing.
-                        NetworkStream stream = tcpClient.GetStream();
+                        value = CheckParameter(VERTICAL_SPEED);
+                        VerticalSpeed = Double.Parse(value);
 
-                        // Send the message to the connected TcpServer. 
-                        stream.Write(data, 0, data.Length);
+                        value = CheckParameter(GROUND_SPEED);
+                        GroundSpeed = Double.Parse(value);
 
-                        Console.WriteLine("Sent: {0}", HEADING);
+                        value = CheckParameter(AIR_SPEED);
+                        AirSpeed = Double.Parse(value);
 
-                        // Receive the TcpServer.response.
+                        value = CheckParameter(ALTITUDE);
+                        Altitude = Double.Parse(value);
 
-                        // Buffer to store the response bytes.
-                        data = new Byte[256];
+                        value = CheckParameter(ROLL);
+                        Roll = Double.Parse(value);
 
-                        // String to store the response ASCII representation.
-                        String responseData = String.Empty;
+                        value = CheckParameter(PITCH);
+                        Pitch = Double.Parse(value);
 
-                        // Read the first batch of the TcpServer response bytes.
-                        Int32 bytes = stream.Read(data, 0, data.Length);
-                        responseData = System.Text.Encoding.ASCII.GetString(data, 0, bytes);
-                        Console.WriteLine("Received: {0}", responseData);
-
-                        this.Heading = double.Parse(responseData);
+                        value = CheckParameter(ALTIMETER);
+                        Altimeter = Double.Parse(value);
 
                         Thread.Sleep(250); //read the data in 4Hz
                     }
@@ -93,11 +96,76 @@ namespace FlightSimulatorApp
             }).Start();
         }
 
+        private string CheckParameter(string msg)
+        {
+            // Translate the passed message into ASCII and store it as a Byte array.
+            Byte[] data = System.Text.Encoding.ASCII.GetBytes(msg);
+
+            // Get a client stream for reading and writing.
+            NetworkStream stream = tcpClient.GetStream();
+
+            // Send the message to the connected TcpServer. 
+            stream.Write(data, 0, data.Length);
+
+            Console.WriteLine("Sent: {0}", msg);
+
+            // Receive the TcpServer.response.
+
+            // Buffer to store the response bytes.
+            data = new Byte[256];
+
+            // String to store the response ASCII representation.
+            String responseData = String.Empty;
+
+            // Read the first batch of the TcpServer response bytes.
+            Int32 bytes = stream.Read(data, 0, data.Length);
+            responseData = System.Text.Encoding.ASCII.GetString(data, 0, bytes);
+
+            Console.WriteLine("Received: {0}", responseData);
+
+            return responseData;
+        }
+
         //the properties implementation
         public double Heading
         {
             get { return heading; }
             set { heading = value; NotifyPropertyChanged("Heading"); }
+        }
+        public double VerticalSpeed
+        {
+            get { return verticalSpeed; }
+            set { verticalSpeed = value; NotifyPropertyChanged("VerticalSpeed"); }
+        }
+        public double GroundSpeed
+        {
+            get { return groundSpeed; }
+            set { groundSpeed = value; NotifyPropertyChanged("GroundSpeed"); }
+        }
+        public double AirSpeed
+        {
+            get { return airSpeed; }
+            set { airSpeed = value; NotifyPropertyChanged("AirSpeed"); }
+        }
+        public double Altitude
+        {
+            get { return altitude; }
+            set { altitude = value; NotifyPropertyChanged("Altitude"); }
+        }
+        public double Roll
+        {
+            get { return roll; }
+            set { roll = value; NotifyPropertyChanged("Roll"); }
+        }
+        public double Pitch
+        {
+            get { return pitch; }
+            set { pitch = value; NotifyPropertyChanged("Pitch"); }
+        }
+        public double Altimeter
+        {
+            get { return altimeter; }
+            set { altimeter = value; NotifyPropertyChanged("Altimeter"); }
         }
 
         public void NotifyPropertyChanged(string PropName)
@@ -107,5 +175,7 @@ namespace FlightSimulatorApp
                 this.PropertyChanged(this, new PropertyChangedEventArgs(PropName));
             }
         }
+
+        
     }
 }

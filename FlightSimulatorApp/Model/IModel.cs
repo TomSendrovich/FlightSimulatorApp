@@ -14,7 +14,14 @@ namespace FlightSimulatorApp
         void disconnect();
         void start();
 
-        //properties (all parameters from simulator?)
+        //properties
         double Heading { get; set; }
+        double VerticalSpeed { get; set; }
+        double GroundSpeed { get; set; }
+        double AirSpeed { get; set; }
+        double Altitude { get; set; }
+        double Roll { get; set; }
+        double Pitch { get; set; }
+        double Altimeter { get; set; }
     }
 }
