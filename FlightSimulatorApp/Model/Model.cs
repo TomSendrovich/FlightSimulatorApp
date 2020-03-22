@@ -38,18 +38,23 @@ namespace FlightSimulatorApp
 
         public void start()
         {
+            const string HEADING = "get /indicated-heading-deg\n";
+            const string VERTICAL_SPEED = "get /gps_indicated-vertical-speed\n";
+            const string GROUND_SPEED = "get /gps_indicated-ground-speed-kt\n";
+            const string AIR_SPEED = "get /airspeed-indicator_indicated-speed-kt\n";
+            const string ALTITUDE = "get /gps_indicated-altitude-ft\n";
+            const string ROLL = "get /attitude-indicator_internal-roll-deg\n";
+            const string PITCH = "get /attitude-indicator_internal-pitch-deg\n";
+            const string ALTIMETER = "get /altimeter_indicated-altitude-ft\n";
+
             new Thread(delegate ()
             {
                 while (!stop)
                 {
                     try
                     {
-
-
-                        string message = "get /indicated-heading-deg\n";
-
                         // Translate the passed message into ASCII and store it as a Byte array.
-                        Byte[] data = System.Text.Encoding.ASCII.GetBytes(message);
+                        Byte[] data = System.Text.Encoding.ASCII.GetBytes(HEADING);
 
                         // Get a client stream for reading and writing.
                         NetworkStream stream = tcpClient.GetStream();
@@ -57,7 +62,7 @@ namespace FlightSimulatorApp
                         // Send the message to the connected TcpServer. 
                         stream.Write(data, 0, data.Length);
 
-                        Console.WriteLine("Sent: {0}", message);
+                        Console.WriteLine("Sent: {0}", HEADING);
 
                         // Receive the TcpServer.response.
 
@@ -72,7 +77,7 @@ namespace FlightSimulatorApp
                         responseData = System.Text.Encoding.ASCII.GetString(data, 0, bytes);
                         Console.WriteLine("Received: {0}", responseData);
 
-                        Heading = Double.Parse(responseData);
+                        this.Heading = double.Parse(responseData);
 
                         Thread.Sleep(250); //read the data in 4Hz
                     }
