@@ -42,35 +42,48 @@ namespace FlightSimulatorApp
             {
                 while (!stop)
                 {
-                    string message = "get /indicated-heading-deg";
+                    try
+                    {
 
-                    // Translate the passed message into ASCII and store it as a Byte array.
-                    Byte[] data = System.Text.Encoding.ASCII.GetBytes(message);
 
-                    // Get a client stream for reading and writing.
-                    NetworkStream stream = tcpClient.GetStream();
+                        string message = "get /indicated-heading-deg\n";
 
-                    // Send the message to the connected TcpServer. 
-                    stream.Write(data, 0, data.Length);
+                        // Translate the passed message into ASCII and store it as a Byte array.
+                        Byte[] data = System.Text.Encoding.ASCII.GetBytes(message);
 
-                    Console.WriteLine("Sent: {0}", message);
+                        // Get a client stream for reading and writing.
+                        NetworkStream stream = tcpClient.GetStream();
 
-                    // Receive the TcpServer.response.
+                        // Send the message to the connected TcpServer. 
+                        stream.Write(data, 0, data.Length);
 
-                    // Buffer to store the response bytes.
-                    data = new Byte[256];
+                        Console.WriteLine("Sent: {0}", message);
 
-                    // String to store the response ASCII representation.
-                    String responseData = String.Empty;
+                        // Receive the TcpServer.response.
 
-                    // Read the first batch of the TcpServer response bytes.
-                    Int32 bytes = stream.Read(data, 0, data.Length);
-                    responseData = System.Text.Encoding.ASCII.GetString(data, 0, bytes);
-                    Console.WriteLine("Received: {0}", responseData);
+                        // Buffer to store the response bytes.
+                        data = new Byte[256];
 
-                    Heading = Double.Parse(responseData);
+                        // String to store the response ASCII representation.
+                        String responseData = String.Empty;
 
-                    Thread.Sleep(250); //read the data in 4Hz
+                        // Read the first batch of the TcpServer response bytes.
+                        Int32 bytes = stream.Read(data, 0, data.Length);
+                        responseData = System.Text.Encoding.ASCII.GetString(data, 0, bytes);
+                        Console.WriteLine("Received: {0}", responseData);
+
+                        Heading = Double.Parse(responseData);
+
+                        Thread.Sleep(250); //read the data in 4Hz
+                    }
+                    catch (ArgumentNullException e)
+                    {
+                        Console.WriteLine("ArgumentNullException: {0}", e);
+                    }
+                    catch (SocketException e)
+                    {
+                        Console.WriteLine("SocketException: {0}", e);
+                    }
                 }
             }).Start();
         }
