@@ -25,34 +25,34 @@
         </Grid.ColumnDefinitions>
 
         <Label Content="Heading" BorderBrush="Black" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-        <Label x:Name="HeadingValue" Grid.Column="1" Content="HeadingValue" BorderBrush="Black" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <Label x:Name="HeadingValue" Grid.Column="1" Content="{Binding Heading}" BorderBrush="Black" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
         <Label Content="VerticalSpeed" Grid.Row="1" BorderBrush="Black" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-        <Label x:Name="VerticalSpeedValue" Grid.Row="1" Grid.Column="1" Content="VerticalSpeedValue" BorderBrush="Black" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <Label x:Name="VerticalSpeedValue" Grid.Row="1" Grid.Column="1" Content="{Binding VerticalSpeed}" BorderBrush="Black" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
 
         <Label Content="GroundSpeed" Grid.Row="2" BorderBrush="Black" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-        <Label x:Name="GroundSpeedValue" Grid.Row="2" Grid.Column="1" Content="GroundSpeedValue" BorderBrush="Black" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <Label x:Name="GroundSpeedValue" Grid.Row="2" Grid.Column="1" Content="{Binding GroundSpeed}" BorderBrush="Black" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
 
         <Label Content="AirSpeed" Grid.Row="3" BorderBrush="Black" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-        <Label x:Name="AirSpeedValue" Grid.Row="3" Grid.Column="1" Content="AirSpeedValue" BorderBrush="Black" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <Label x:Name="AirSpeedValue" Grid.Row="3" Grid.Column="1" Content="{Binding AirSpeed}" BorderBrush="Black" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
 
         <Label Content="Altitude" Grid.Row="4" BorderBrush="Black" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-        <Label x:Name="AltitudeValue" Grid.Row="4" Grid.Column="1" Content="AltitudeValue" BorderBrush="Black" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <Label x:Name="AltitudeValue" Grid.Row="4" Grid.Column="1" Content="{Binding Altitude}" BorderBrush="Black" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
 
         <Label Content="Roll" Grid.Row="5" BorderBrush="Black" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-        <Label x:Name="RollValue"  Grid.Row="5" Grid.Column="1" Content="RollValue" BorderBrush="Black" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <Label x:Name="RollValue"  Grid.Row="5" Grid.Column="1" Content="{Binding Roll}" BorderBrush="Black" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
 
         <Label Content="Pitch" Grid.Row="6" BorderBrush="Black" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-        <Label x:Name="PitchValue"  Grid.Row="6" Grid.Column="1" Content="PitchValue" BorderBrush="Black" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <Label x:Name="PitchValue"  Grid.Row="6" Grid.Column="1" Content="{Binding Pitch}" BorderBrush="Black" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
 
         <Label Content="Altimeter" Grid.Row="7" BorderBrush="Black" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-        <Label x:Name="AltimeterValue" Grid.Row="7" Grid.Column="1" Content="AltimeterValue" BorderBrush="Black" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <Label x:Name="AltimeterValue" Grid.Row="7" Grid.Column="1" Content="{Binding Altimeter}" BorderBrush="Black" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
     </Grid>
 </UserControl>
