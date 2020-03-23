@@ -11,20 +11,20 @@ namespace FlightSimulatorApp
 {
     class Model : IModel
     {
-        const string HEADING = "get /instrumentation/heading-indicator/indicated-heading-deg\n";
-        const string VERTICAL_SPEED = "get /instrumentation/gps/indicated-vertical-speed\n";
-        const string GROUND_SPEED = "get /instrumentation/gps/indicated-ground-speed-kt\n";
-        const string AIR_SPEED = "get /instrumentation/airspeed-indicator/indicated-speed-kt\n";
-        const string ALTITUDE = "get /instrumentation/gps/indicated-altitude-ft\n";
-        const string ROLL = "get /instrumentation/attitude-indicator/internal-roll-deg\n";
-        const string PITCH = "get /instrumentation/attitude-indicator/internal-pitch-deg\n";
-        const string ALTIMETER = "get /instrumentation/altimeter/indicated-altitude-ft\n";
-        const string THROTTLE = "get /controls/engines/current-engine/throttle\n";
-        const string AILERON = "get /controls/flight/aileron\n";
-        const string ELEVATOR = "get /controls/flight/elevator\n";
-        const string RUDDER = "get /controls/flight/rudder\n";
-        const string LATITUDE = "get /position/latitude-deg\n";
-        const string LONGITUDE = "get /position/longitude-deg\n";
+        const string HEADING = "/instrumentation/heading-indicator/indicated-heading-deg";
+        const string VERTICAL_SPEED = "/instrumentation/gps/indicated-vertical-speed";
+        const string GROUND_SPEED = "/instrumentation/gps/indicated-ground-speed-kt";
+        const string AIR_SPEED = "/instrumentation/airspeed-indicator/indicated-speed-kt";
+        const string ALTITUDE = "/instrumentation/gps/indicated-altitude-ft";
+        const string ROLL = "/instrumentation/attitude-indicator/internal-roll-deg";
+        const string PITCH = "/instrumentation/attitude-indicator/internal-pitch-deg";
+        const string ALTIMETER = "/instrumentation/altimeter/indicated-altitude-ft";
+        const string THROTTLE = "/controls/engines/current-engine/throttle";
+        const string AILERON = "/controls/flight/aileron";
+        const string ELEVATOR = "/controls/flight/elevator";
+        const string RUDDER = "/controls/flight/rudder";
+        const string LATITUDE = "/position/latitude-deg";
+        const string LONGITUDE = "/position/longitude-deg";
 
         TcpClient tcpClient;
         volatile Boolean stop;
@@ -55,37 +55,32 @@ namespace FlightSimulatorApp
             new Thread(delegate ()
             {
                 string value;
-
-                //Test - set command
-                value = CheckParameter("set /instrumentation/heading-indicator/indicated-heading-deg 5\n");
-                Heading = Double.Parse(value);
-
                 while (!stop)
                 {
                     try
                     {
-                        value = CheckParameter(HEADING);
+                        value = GetParameter(HEADING);
                         Heading = Double.Parse(value);
 
-                        value = CheckParameter(VERTICAL_SPEED);
+                        value = GetParameter(VERTICAL_SPEED);
                         VerticalSpeed = Double.Parse(value);
 
-                        value = CheckParameter(GROUND_SPEED);
+                        value = GetParameter(GROUND_SPEED);
                         GroundSpeed = Double.Parse(value);
 
-                        value = CheckParameter(AIR_SPEED);
+                        value = GetParameter(AIR_SPEED);
                         AirSpeed = Double.Parse(value);
 
-                        value = CheckParameter(ALTITUDE);
+                        value = GetParameter(ALTITUDE);
                         Altitude = Double.Parse(value);
 
-                        value = CheckParameter(ROLL);
+                        value = GetParameter(ROLL);
                         Roll = Double.Parse(value);
 
-                        value = CheckParameter(PITCH);
+                        value = GetParameter(PITCH);
                         Pitch = Double.Parse(value);
 
-                        value = CheckParameter(ALTIMETER);
+                        value = GetParameter(ALTIMETER);
                         Altimeter = Double.Parse(value);
 
                         Thread.Sleep(250); //read the data in 4Hz
@@ -102,10 +97,10 @@ namespace FlightSimulatorApp
             }).Start();
         }
 
-        private string CheckParameter(string msg)
+        private string GetParameter(string param)
         {
             // Translate the passed message into ASCII and store it as a Byte array.
-            Byte[] data = System.Text.Encoding.ASCII.GetBytes(msg);
+            Byte[] data = System.Text.Encoding.ASCII.GetBytes("get " + param + "\n");
 
             // Get a client stream for reading and writing.
             NetworkStream stream = tcpClient.GetStream();
@@ -113,7 +108,7 @@ namespace FlightSimulatorApp
             // Send the message to the connected TcpServer. 
             stream.Write(data, 0, data.Length);
 
-            Console.WriteLine("Sent: {0}", msg);
+            Console.WriteLine("Sent: {0}", param);
 
             // Receive the TcpServer.response.
 
