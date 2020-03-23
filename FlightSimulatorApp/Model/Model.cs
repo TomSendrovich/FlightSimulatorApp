@@ -11,10 +11,25 @@ namespace FlightSimulatorApp
 {
     class Model : IModel
     {
+        const string HEADING = "/instrumentation/heading-indicator/indicated-heading-deg";
+        const string VERTICAL_SPEED = "/instrumentation/gps/indicated-vertical-speed";
+        const string GROUND_SPEED = "/instrumentation/gps/indicated-ground-speed-kt";
+        const string AIR_SPEED = "/instrumentation/airspeed-indicator/indicated-speed-kt";
+        const string ALTITUDE = "/instrumentation/gps/indicated-altitude-ft";
+        const string ROLL = "/instrumentation/attitude-indicator/internal-roll-deg";
+        const string PITCH = "/instrumentation/attitude-indicator/internal-pitch-deg";
+        const string ALTIMETER = "/instrumentation/altimeter/indicated-altitude-ft";
+        const string THROTTLE = "/controls/engines/current-engine/throttle";
+        const string AILERON = "/controls/flight/aileron";
+        const string ELEVATOR = "/controls/flight/elevator";
+        const string RUDDER = "/controls/flight/rudder";
+        const string LATITUDE = "/position/latitude-deg";
+        const string LONGITUDE = "/position/longitude-deg";
+
         TcpClient tcpClient;
         volatile Boolean stop;
 
-        private double heading, verticalSpeed, groundSpeed, airSpeed, altitude, roll, pitch, altimeter;
+        private double heading, verticalSpeed, groundSpeed, airSpeed, altitude, roll, pitch, altimeter, throttle, aileron, elevator, rudder, latitude, longitude;
 
         //INotifyPropertyChanged implementation
         public event PropertyChangedEventHandler PropertyChanged;
@@ -37,49 +52,35 @@ namespace FlightSimulatorApp
         }
         public void start()
         {
-            const string HEADING = "get /instrumentation/heading-indicator/indicated-heading-deg\n";
-            const string VERTICAL_SPEED = "get /instrumentation/gps/indicated-vertical-speed\n";
-            const string GROUND_SPEED = "get /instrumentation/gps/indicated-ground-speed-kt\n";
-            const string AIR_SPEED = "get /instrumentation/airspeed-indicator/indicated-speed-kt\n";
-            const string ALTITUDE = "get /instrumentation/gps/indicated-altitude-ft\n";
-            const string ROLL = "get /instrumentation/attitude-indicator/internal-roll-deg\n";
-            const string PITCH = "get /instrumentation/attitude-indicator/internal-pitch-deg\n";
-            const string ALTIMETER = "get /instrumentation/altimeter/indicated-altitude-ft\n";
-
             new Thread(delegate ()
             {
                 string value;
-
-                //Test - set command
-                value = CheckParameter("set /indicated-heading-deg 5\n");
-                Heading = Double.Parse(value);
-
                 while (!stop)
                 {
                     try
                     {
-                        value = CheckParameter(HEADING);
+                        value = GetParameter(HEADING);
                         Heading = Double.Parse(value);
 
-                        value = CheckParameter(VERTICAL_SPEED);
+                        value = GetParameter(VERTICAL_SPEED);
                         VerticalSpeed = Double.Parse(value);
 
-                        value = CheckParameter(GROUND_SPEED);
+                        value = GetParameter(GROUND_SPEED);
                         GroundSpeed = Double.Parse(value);
 
-                        value = CheckParameter(AIR_SPEED);
+                        value = GetParameter(AIR_SPEED);
                         AirSpeed = Double.Parse(value);
 
-                        value = CheckParameter(ALTITUDE);
+                        value = GetParameter(ALTITUDE);
                         Altitude = Double.Parse(value);
 
-                        value = CheckParameter(ROLL);
+                        value = GetParameter(ROLL);
                         Roll = Double.Parse(value);
 
-                        value = CheckParameter(PITCH);
+                        value = GetParameter(PITCH);
                         Pitch = Double.Parse(value);
 
-                        value = CheckParameter(ALTIMETER);
+                        value = GetParameter(ALTIMETER);
                         Altimeter = Double.Parse(value);
 
                         Thread.Sleep(250); //read the data in 4Hz
@@ -96,10 +97,10 @@ namespace FlightSimulatorApp
             }).Start();
         }
 
-        private string CheckParameter(string msg)
+        private string GetParameter(string param)
         {
             // Translate the passed message into ASCII and store it as a Byte array.
-            Byte[] data = System.Text.Encoding.ASCII.GetBytes(msg);
+            Byte[] data = System.Text.Encoding.ASCII.GetBytes("get " + param + "\n");
 
             // Get a client stream for reading and writing.
             NetworkStream stream = tcpClient.GetStream();
@@ -107,7 +108,7 @@ namespace FlightSimulatorApp
             // Send the message to the connected TcpServer. 
             stream.Write(data, 0, data.Length);
 
-            Console.WriteLine("Sent: {0}", msg);
+            Console.WriteLine("Sent: {0}", param);
 
             // Receive the TcpServer.response.
 
@@ -126,7 +127,8 @@ namespace FlightSimulatorApp
             return responseData;
         }
 
-        //the properties implementation
+        #region Properties
+
         public double Heading
         {
             get { return heading; }
@@ -167,6 +169,36 @@ namespace FlightSimulatorApp
             get { return altimeter; }
             set { altimeter = value; NotifyPropertyChanged("Altimeter"); }
         }
+        public double Throttle
+        {
+            get { return throttle; }
+            set { throttle = value; NotifyPropertyChanged("Throttle"); }
+        }
+        public double Aileron
+        {
+            get { return aileron; }
+            set { aileron = value; NotifyPropertyChanged("Aileron"); }
+        }
+        public double Elevator
+        {
+            get { return elevator; }
+            set { elevator = value; NotifyPropertyChanged("Elevator"); }
+        }
+        public double Rudder
+        {
+            get { return rudder; }
+            set { rudder = value; NotifyPropertyChanged("Rudder"); }
+        }
+        public double Latitude
+        {
+            get { return latitude; }
+            set { latitude = value; NotifyPropertyChanged("Latitude"); }
+        }
+        public double Longitude
+        {
+            get { return longitude; }
+            set { longitude = value; NotifyPropertyChanged("Longitude"); }
+        }
 
         public void NotifyPropertyChanged(string PropName)
         {
@@ -175,7 +207,6 @@ namespace FlightSimulatorApp
                 this.PropertyChanged(this, new PropertyChangedEventArgs(PropName));
             }
         }
-
-        
+        #endregion
     }
 }
