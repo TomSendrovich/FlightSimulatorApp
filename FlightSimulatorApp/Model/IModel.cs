@@ -23,5 +23,11 @@ namespace FlightSimulatorApp
         double Roll { get; set; }
         double Pitch { get; set; }
         double Altimeter { get; set; }
+        double Throttle { get; set; }
+        double Aileron { get; set; }
+        double Elevator { get; set; }
+        double Rudder { get; set; }
+        double Latitude { get; set; }
+        double Longitude { get; set; }
     }
 }
