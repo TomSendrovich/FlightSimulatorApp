@@ -49,13 +49,15 @@ namespace FlightSimulatorApp.View
             model.disconnect();
             statusValue.Content = "Disconnected";
             statusValue.Foreground = new SolidColorBrush(Colors.Red);
+            latitudeValue.Visibility = Visibility.Hidden;
+            latitudeTitle.Visibility = Visibility.Hidden;
+            longitudeValue.Visibility = Visibility.Hidden;
+            longitudeTitle.Visibility = Visibility.Hidden;
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             model.disconnect();
-            statusValue.Content = "Disconnected";
-            statusValue.Foreground = new SolidColorBrush(Colors.Red);
         }
 
         internal void Connect(string ip, int port)
