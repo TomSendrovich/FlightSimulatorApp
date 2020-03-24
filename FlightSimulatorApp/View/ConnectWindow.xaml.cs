@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Text.RegularExpressions;
 
 namespace FlightSimulatorApp.View
 {
@@ -27,15 +28,46 @@ namespace FlightSimulatorApp.View
 
         private void ConnectButton_Click(object sender, RoutedEventArgs e)
         {
-            ((MainWindow)Application.Current.MainWindow).Connect(ipValue.Text, Int32.Parse(portValue.Text));
-            ((MainWindow)Application.Current.MainWindow).statusValue.Text = "Connected";
-            ((MainWindow)Application.Current.MainWindow).statusValue.Foreground = new SolidColorBrush(Colors.Green);
-            this.Close();
+            string ip = ipValue.Text;
+            string port = portValue.Text;
+            if (!ValidateIPv4(ip))
+            {
+                MessageBox.Show("Invalid IP address!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else if (!ValidatePort(port))
+            {
+                MessageBox.Show("Invalid port number!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else
+            {
+                ((MainWindow)Application.Current.MainWindow).Connect(ip, Int32.Parse(port));
+                ((MainWindow)Application.Current.MainWindow).statusValue.Text = "Connected";
+                ((MainWindow)Application.Current.MainWindow).statusValue.Foreground = new SolidColorBrush(Colors.Green);
+                this.Close();
+            }
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private bool ValidateIPv4(string ip)
+        {
+            //regex for a valid IP address
+            var regex = @"^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$";
+            var match = Regex.Match(ip, regex, RegexOptions.IgnoreCase);
+
+            return match.Success;
+        }
+
+        private bool ValidatePort(string ip)
+        {
+            //regex for a valid TCP/UDP Port, range 1-65535
+            var regex = @"^()([1-9]|[1-5]?[0-9]{2,4}|6[1-4][0-9]{3}|65[1-4][0-9]{2}|655[1-2][0-9]|6553[1-5])$";
+            var match = Regex.Match(ip, regex, RegexOptions.IgnoreCase);
+
+            return match.Success;
         }
     }
 }
