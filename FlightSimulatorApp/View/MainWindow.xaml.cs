@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Threading;
 
 namespace FlightSimulatorApp.View
 {
@@ -24,18 +25,38 @@ namespace FlightSimulatorApp.View
     public partial class MainWindow : Window
     {
         ViewModel vm;
+        Model model;
         public MainWindow()
         {
             TcpClient tcpClient = new TcpClient();
-            var model = new Model(tcpClient);
-            //model.connect("127.0.0.1", 5402);
-            //model.start();
+            model = new Model(tcpClient);
 
             vm = new ViewModel(model);
             DataContext = vm;
 
             InitializeComponent();
-            
+        }
+
+        private void connectButton_Click(object sender, RoutedEventArgs e)
+        {
+            model.connect("127.0.0.1", 5402);
+            model.start();
+            statusValue.Text = "Connected";
+            statusValue.Foreground = new SolidColorBrush(Colors.Green);
+        }
+
+        private void disconnectButton_Click(object sender, RoutedEventArgs e)
+        {
+            model.disconnect();
+            statusValue.Text = "Disconnected";
+            statusValue.Foreground = new SolidColorBrush(Colors.Red);
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            model.disconnect();
+            statusValue.Text = "Disconnected";
+            statusValue.Foreground = new SolidColorBrush(Colors.Red);
         }
     }
 }

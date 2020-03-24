@@ -7,7 +7,7 @@
         xmlns:Controls="clr-namespace:FlightSimulatorApp.View.Controls"
         xmlns:local="clr-namespace:FlightSimulatorApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="800">
+        Title="MainWindow" Height="600" Width="800" Closing="Window_Closing">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -23,13 +23,13 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel Orientation="Horizontal">
-            <Button x:Name="connectButton" Content="Connect" VerticalAlignment="Center" FontSize="20" Padding="10" Margin="20"/>
-            <Button x:Name="disconnectButton" Content="Disconnect" VerticalAlignment="Center" FontSize="20" Padding="10" Margin="20"/>
+            <Button x:Name="connectButton" Content="Connect" VerticalAlignment="Center" FontSize="20" Padding="10" Margin="20" Click="connectButton_Click"/>
+            <Button x:Name="disconnectButton" Content="Disconnect" VerticalAlignment="Center" FontSize="20" Padding="10" Margin="20" Click="disconnectButton_Click"/>
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" Grid.Row="1">
             <TextBlock Margin="20" FontSize="20" FontWeight="Bold">Status:</TextBlock>
-            <TextBlock x:Name="statusValue" Margin="20" FontSize="20">Disconnected</TextBlock>
+            <TextBlock x:Name="statusValue" Foreground="Red" Margin="20" FontSize="20">Disconnected</TextBlock>
         </StackPanel>
 
         <!--Map default displaying is Ben Gurion Airport -->
