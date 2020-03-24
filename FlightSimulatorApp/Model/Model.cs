@@ -55,33 +55,50 @@ namespace FlightSimulatorApp
             new Thread(delegate ()
             {
                 string value;
+                double value_d;
                 while (!stop)
                 {
                     try
                     {
                         value = GetParameter(HEADING);
-                        Heading = Double.Parse(value);
+                        value_d = Double.Parse(value);
+                        Heading = Math.Round(value_d, 2, MidpointRounding.ToEven);
 
                         value = GetParameter(VERTICAL_SPEED);
-                        VerticalSpeed = Double.Parse(value);
+                        value_d = Double.Parse(value);
+                        VerticalSpeed = Math.Round(value_d, 2, MidpointRounding.ToEven);
 
                         value = GetParameter(GROUND_SPEED);
-                        GroundSpeed = Double.Parse(value);
+                        value_d = Double.Parse(value);
+                        GroundSpeed = Math.Round(value_d, 2, MidpointRounding.ToEven);
 
                         value = GetParameter(AIR_SPEED);
-                        AirSpeed = Double.Parse(value);
+                        value_d = Double.Parse(value);
+                        AirSpeed = Math.Round(value_d, 2, MidpointRounding.ToEven);
 
                         value = GetParameter(ALTITUDE);
-                        Altitude = Double.Parse(value);
+                        value_d = Double.Parse(value);
+                        Altitude = Math.Round(value_d, 2, MidpointRounding.ToEven);
 
                         value = GetParameter(ROLL);
-                        Roll = Double.Parse(value);
+                        value_d = Double.Parse(value);
+                        Roll = Math.Round(value_d, 2, MidpointRounding.ToEven);
 
                         value = GetParameter(PITCH);
-                        Pitch = Double.Parse(value);
+                        value_d = Double.Parse(value);
+                        Pitch = Math.Round(value_d, 2, MidpointRounding.ToEven);
 
                         value = GetParameter(ALTIMETER);
-                        Altimeter = Double.Parse(value);
+                        value_d = Double.Parse(value);
+                        Altimeter = Math.Round(value_d, 2, MidpointRounding.ToEven);
+
+                        value = GetParameter(LATITUDE);
+                        value_d = Double.Parse(value);
+                        Latitude = Math.Round(value_d, 4, MidpointRounding.ToEven);
+
+                        value = GetParameter(LONGITUDE);
+                        value_d = Double.Parse(value);
+                        Longitude = Math.Round(value_d, 4, MidpointRounding.ToEven);
 
                         Thread.Sleep(250); //read the data in 4Hz
                     }

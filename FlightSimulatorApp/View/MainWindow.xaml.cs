@@ -41,20 +41,20 @@ namespace FlightSimulatorApp.View
         private void connectButton_Click(object sender, RoutedEventArgs e)
         {
             ConnectWindow window = new ConnectWindow();
-            window.Show();           
+            window.Show();
         }
 
         private void disconnectButton_Click(object sender, RoutedEventArgs e)
         {
             model.disconnect();
-            statusValue.Text = "Disconnected";
+            statusValue.Content = "Disconnected";
             statusValue.Foreground = new SolidColorBrush(Colors.Red);
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             model.disconnect();
-            statusValue.Text = "Disconnected";
+            statusValue.Content = "Disconnected";
             statusValue.Foreground = new SolidColorBrush(Colors.Red);
         }
 
@@ -62,6 +62,17 @@ namespace FlightSimulatorApp.View
         {
             model.connect(ip, port);
             model.start();
+            statusValue.Content = "Connected";
+            statusValue.Foreground = new SolidColorBrush(Colors.Green);
+            latitudeValue.Visibility = Visibility.Visible;
+            latitudeTitle.Visibility = Visibility.Visible;
+            longitudeValue.Visibility = Visibility.Visible;
+            longitudeTitle.Visibility = Visibility.Visible;
+        }
+
+        private void dashboard_Loaded(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

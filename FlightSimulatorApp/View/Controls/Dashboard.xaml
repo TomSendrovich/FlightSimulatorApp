@@ -23,37 +23,37 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <Label Content="Dashboard" Grid.ColumnSpan="4" BorderBrush="Black" FontSize="30" FontWeight="Bold" HorizontalAlignment="Center"/>
+            <Label Content="Dashboard" Grid.ColumnSpan="4" BorderBrush="Black" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center"/>
 
-            <Label Content="Heading" Grid.Row="1" Grid.Column="0" BorderBrush="Black" FontSize="20" HorizontalAlignment="Left"/>
-            <Label x:Name="HeadingValue" Grid.Row="1" Grid.Column="1" Content="{Binding VM_Heading}" BorderBrush="Black" FontSize="20" HorizontalAlignment="Left"/>
+            <Label Content="Heading" Grid.Row="1" Grid.Column="0" BorderBrush="Black" FontSize="15" HorizontalAlignment="Left"/>
+            <Label x:Name="HeadingValue" Grid.Row="1" Grid.Column="1" Content="{Binding VM_Heading}" BorderBrush="Black" FontSize="15" HorizontalAlignment="Left"/>
 
-            <Label Content="VerticalSpeed" Grid.Row="2" Grid.Column="0" BorderBrush="Black" FontSize="20" HorizontalAlignment="Left"/>
-            <Label x:Name="VerticalSpeedValue" Grid.Row="2" Grid.Column="1" Content="{Binding VM_VerticalSpeed}" BorderBrush="Black" FontSize="20" HorizontalAlignment="Left"/>
-
-
-            <Label Content="GroundSpeed" Grid.Row="3" Grid.Column="0" BorderBrush="Black" FontSize="20" HorizontalAlignment="Left"/>
-            <Label x:Name="GroundSpeedValue" Grid.Row="3" Grid.Column="1" Content="{Binding VM_GroundSpeed}" BorderBrush="Black" FontSize="20" HorizontalAlignment="Left"/>
+            <Label Content="VerticalSpeed" Grid.Row="2" Grid.Column="0" BorderBrush="Black" FontSize="15" HorizontalAlignment="Left"/>
+            <Label x:Name="VerticalSpeedValue" Grid.Row="2" Grid.Column="1" Content="{Binding VM_VerticalSpeed}" BorderBrush="Black" FontSize="15" HorizontalAlignment="Left"/>
 
 
-            <Label Content="AirSpeed" Grid.Row="4" Grid.Column="0" BorderBrush="Black" FontSize="20" HorizontalAlignment="Left"/>
-            <Label x:Name="AirSpeedValue" Grid.Row="4" Grid.Column="1" Content="{Binding VM_AirSpeed}" BorderBrush="Black" FontSize="20" HorizontalAlignment="Left"/>
+            <Label Content="GroundSpeed" Grid.Row="3" Grid.Column="0" BorderBrush="Black" FontSize="15" HorizontalAlignment="Left"/>
+            <Label x:Name="GroundSpeedValue" Grid.Row="3" Grid.Column="1" Content="{Binding VM_GroundSpeed}" BorderBrush="Black" FontSize="15" HorizontalAlignment="Left"/>
 
 
-            <Label Content="Altitude" Grid.Row="1" Grid.Column="2" BorderBrush="Black" FontSize="20" HorizontalAlignment="Left"/>
-            <Label x:Name="AltitudeValue" Grid.Row="1" Grid.Column="3" Content="{Binding VM_Altitude}" BorderBrush="Black" FontSize="20" HorizontalAlignment="Left"/>
+            <Label Content="AirSpeed" Grid.Row="4" Grid.Column="0" BorderBrush="Black" FontSize="15" HorizontalAlignment="Left"/>
+            <Label x:Name="AirSpeedValue" Grid.Row="4" Grid.Column="1" Content="{Binding VM_AirSpeed}" BorderBrush="Black" FontSize="15" HorizontalAlignment="Left"/>
 
 
-            <Label Content="Roll" Grid.Row="2" Grid.Column="2" BorderBrush="Black" FontSize="20" HorizontalAlignment="Left"/>
-            <Label x:Name="RollValue"  Grid.Row="2" Grid.Column="3" Content="{Binding VM_Roll}" BorderBrush="Black" FontSize="20" HorizontalAlignment="Left"/>
+            <Label Content="Altitude" Grid.Row="1" Grid.Column="2" BorderBrush="Black" FontSize="15" HorizontalAlignment="Left"/>
+            <Label x:Name="AltitudeValue" Grid.Row="1" Grid.Column="3" Content="{Binding VM_Altitude}" BorderBrush="Black" FontSize="15" HorizontalAlignment="Left"/>
 
 
-            <Label Content="Pitch" Grid.Row="3" Grid.Column="2" BorderBrush="Black" FontSize="20" HorizontalAlignment="Left"/>
-            <Label x:Name="PitchValue"  Grid.Row="3" Grid.Column="3" Content="{Binding VM_Pitch}" BorderBrush="Black" FontSize="20" HorizontalAlignment="Left"/>
+            <Label Content="Roll" Grid.Row="2" Grid.Column="2" BorderBrush="Black" FontSize="15" HorizontalAlignment="Left"/>
+            <Label x:Name="RollValue"  Grid.Row="2" Grid.Column="3" Content="{Binding VM_Roll}" BorderBrush="Black" FontSize="15" HorizontalAlignment="Left"/>
 
 
-            <Label Content="Altimeter" Grid.Row="4" Grid.Column="2" BorderBrush="Black" FontSize="20" HorizontalAlignment="Left"/>
-            <Label x:Name="AltimeterValue" Grid.Row="4" Grid.Column="3" Content="{Binding VM_Altimeter}" BorderBrush="Black" FontSize="20" HorizontalAlignment="Left"/>
+            <Label Content="Pitch" Grid.Row="3" Grid.Column="2" BorderBrush="Black" FontSize="15" HorizontalAlignment="Left"/>
+            <Label x:Name="PitchValue"  Grid.Row="3" Grid.Column="3" Content="{Binding VM_Pitch}" BorderBrush="Black" FontSize="15" HorizontalAlignment="Left"/>
+
+
+            <Label Content="Altimeter" Grid.Row="4" Grid.Column="2" BorderBrush="Black" FontSize="15" HorizontalAlignment="Left"/>
+            <Label x:Name="AltimeterValue" Grid.Row="4" Grid.Column="3" Content="{Binding VM_Altimeter}" BorderBrush="Black" FontSize="15" HorizontalAlignment="Left"/>
 
         </Grid>
     </Border>

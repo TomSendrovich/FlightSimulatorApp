@@ -60,7 +60,6 @@
     </ApplicationDefinition>
     <Compile Include="Model\IModel.cs" />
     <Compile Include="Model\Model.cs" />
-    <Compile Include="Model\User.cs" />
     <Compile Include="View\ConnectWindow.xaml.cs">
       <DependentUpon>ConnectWindow.xaml</DependentUpon>
     </Compile>

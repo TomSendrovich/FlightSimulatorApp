@@ -40,9 +40,7 @@ namespace FlightSimulatorApp.View
             }
             else
             {
-                ((MainWindow)Application.Current.MainWindow).Connect(ip, Int32.Parse(port));
-                ((MainWindow)Application.Current.MainWindow).statusValue.Text = "Connected";
-                ((MainWindow)Application.Current.MainWindow).statusValue.Foreground = new SolidColorBrush(Colors.Green);
+                ((MainWindow)Application.Current.MainWindow).Connect(ip, Int32.Parse(port));                
                 this.Close();
             }
         }
