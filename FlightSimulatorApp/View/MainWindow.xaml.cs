@@ -28,11 +28,14 @@ namespace FlightSimulatorApp.View
         {
             TcpClient tcpClient = new TcpClient();
             var model = new Model(tcpClient);
-            model.connect("127.0.0.1", 5402);
-            model.start();
 
             vm = new ViewModel(model);
             DataContext = vm;
+
+         //   model.connect("127.0.0.1", 5402);
+        //    model.start();
+
+            
 
             InitializeComponent();
             

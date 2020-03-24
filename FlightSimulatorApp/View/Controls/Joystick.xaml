@@ -140,13 +140,13 @@
             <Grid.LayoutTransform>
                 <RotateTransform Angle="90"/>
             </Grid.LayoutTransform>
-            <Slider x:Name="ThrottleSlider" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Margin="0,0,100,50" TickPlacement="BottomRight" Value="50" TickFrequency="10" IsSnapToTickEnabled="True" Maximum="100"/>
+            <Slider x:Name="ThrottleSlider" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Margin="0,0,100,50" TickPlacement="BottomRight" Value="{Binding Path=VM_Throttle , Mode=OneWayToSource}" TickFrequency="10" IsSnapToTickEnabled="True" Maximum="100"/>
             <TextBlock x:Name="ThrottleText" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,100,20" FontSize="30" >Throttle</TextBlock>
         </Grid>
 
         <!-- Rudder Slider -->
         <Grid>
-            <Slider x:Name="RudderSlider" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Margin="50,0,0,50" TickPlacement="BottomRight" Value="50" TickFrequency="10" IsSnapToTickEnabled="True" Maximum="100" />
+            <Slider x:Name="RudderSlider" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Margin="50,0,0,50" TickPlacement="BottomRight" Value="{Binding Path=VM_Rudder, Mode=OneWayToSource}" TickFrequency="10" IsSnapToTickEnabled="True" Maximum="100" />
             <TextBlock x:Name="RudderText" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="50,0,0,20" FontSize="30">Rudder</TextBlock>
         </Grid>
 
