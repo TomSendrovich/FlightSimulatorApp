@@ -53,6 +53,7 @@ namespace FlightSimulatorApp.View
             latitudeTitle.Visibility = Visibility.Hidden;
             longitudeValue.Visibility = Visibility.Hidden;
             longitudeTitle.Visibility = Visibility.Hidden;
+            mapCanvas.Visibility = Visibility.Hidden;
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -70,6 +71,7 @@ namespace FlightSimulatorApp.View
             latitudeTitle.Visibility = Visibility.Visible;
             longitudeValue.Visibility = Visibility.Visible;
             longitudeTitle.Visibility = Visibility.Visible;
+            mapCanvas.Visibility = Visibility.Visible;
         }
 
         private void dashboard_Loaded(object sender, RoutedEventArgs e)

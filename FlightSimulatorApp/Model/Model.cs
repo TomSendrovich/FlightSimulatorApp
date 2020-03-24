@@ -30,6 +30,7 @@ namespace FlightSimulatorApp
         volatile Boolean stop;
 
         private double heading, verticalSpeed, groundSpeed, airSpeed, altitude, roll, pitch, altimeter, throttle, aileron, elevator, rudder, latitude, longitude;
+        private string location;
 
         //INotifyPropertyChanged implementation
         public event PropertyChangedEventHandler PropertyChanged;
@@ -54,7 +55,7 @@ namespace FlightSimulatorApp
         {
             new Thread(delegate ()
             {
-                string value;
+                string value, tmpLongitude, tmpLatitude;
                 double value_d;
                 while (!stop)
                 {
@@ -93,12 +94,16 @@ namespace FlightSimulatorApp
                         Altimeter = Math.Round(value_d, 2, MidpointRounding.ToEven);
 
                         value = GetParameter(LATITUDE);
+                        tmpLatitude = value;
                         value_d = Double.Parse(value);
                         Latitude = Math.Round(value_d, 4, MidpointRounding.ToEven);
 
                         value = GetParameter(LONGITUDE);
+                        tmpLongitude = value;
                         value_d = Double.Parse(value);
                         Longitude = Math.Round(value_d, 4, MidpointRounding.ToEven);
+
+                        Location = tmpLatitude + "," + tmpLongitude;
 
                         Thread.Sleep(250); //read the data in 4Hz
                     }
@@ -125,7 +130,7 @@ namespace FlightSimulatorApp
             // Send the message to the connected TcpServer. 
             stream.Write(data, 0, data.Length);
 
-            Console.WriteLine("Sent: {0}", param);
+            //Console.WriteLine("Sent: {0}", param);
 
             // Receive the TcpServer.response.
 
@@ -139,7 +144,7 @@ namespace FlightSimulatorApp
             Int32 bytes = stream.Read(data, 0, data.Length);
             responseData = System.Text.Encoding.ASCII.GetString(data, 0, bytes);
 
-            Console.WriteLine("Received: {0}", responseData);
+            //Console.WriteLine("Received: {0}", responseData);
 
             return responseData;
         }
@@ -215,6 +220,11 @@ namespace FlightSimulatorApp
         {
             get { return longitude; }
             set { longitude = value; NotifyPropertyChanged("Longitude"); }
+        }
+        public string Location
+        {
+            get { return location; }
+            set { location = value; NotifyPropertyChanged("Location"); }
         }
 
         public void NotifyPropertyChanged(string PropName)

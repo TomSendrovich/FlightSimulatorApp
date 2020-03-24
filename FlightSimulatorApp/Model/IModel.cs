@@ -29,5 +29,6 @@ namespace FlightSimulatorApp
         double Rudder { get; set; }
         double Latitude { get; set; }
         double Longitude { get; set; }
+        string Location { get; set; }
     }
 }
