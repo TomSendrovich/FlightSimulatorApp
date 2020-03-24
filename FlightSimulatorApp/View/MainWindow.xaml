@@ -11,6 +11,8 @@
 
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
@@ -20,19 +22,30 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
+        <StackPanel Orientation="Horizontal">
+            <Button x:Name="connectButton" Content="Connect" VerticalAlignment="Center" FontSize="20" Padding="10" Margin="20"/>
+            <Button x:Name="disconnectButton" Content="Disconnect" VerticalAlignment="Center" FontSize="20" Padding="10" Margin="20"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="1">
+            <TextBlock Margin="20" FontSize="20" FontWeight="Bold">Status:</TextBlock>
+            <TextBlock x:Name="statusValue" Margin="20" FontSize="20">Disconnected</TextBlock>
+        </StackPanel>
+
         <!--Map default displaying is Ben Gurion Airport -->
-        <m:Map Grid.RowSpan="2"
+        <Border Grid.RowSpan="2" Grid.Row="2" BorderBrush="Black" BorderThickness="1" Margin="5">
+            <m:Map               
                x:Name="map"
-               Center="32.000061,34.870609" 
-               Width="430"
+               Center="32.000061,34.870609"               
                ZoomLevel="12" 
                CredentialsProvider="rZtMp9dgMbg51f0kMWW9~TmLCeERBkf8yE42EakRTwA~AnaXQia3keDOtXTcwXRbe_6PVi_qpD7xdts60xE7ZYLbQM_4EY9-cl9NmkQZ50Od"/>
+        </Border>
 
-        <Viewbox Grid.Column="1">
-            <Controls:Dashboard x:Name="dashboard" Width="350" />
+        <Viewbox Grid.Row="0" Grid.Column="1" Grid.RowSpan="3" Margin="5">
+            <Controls:Dashboard x:Name="dashboard" Width="350"/>
         </Viewbox>
 
-        <Viewbox Grid.Row="1" Grid.Column="1">
+        <Viewbox Grid.Row="3" Grid.Column="1">
             <Controls:Joystick  x:Name="joystick" Width="500" />
         </Viewbox>
 
