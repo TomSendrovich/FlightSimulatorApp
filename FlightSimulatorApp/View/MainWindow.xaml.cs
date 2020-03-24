@@ -35,14 +35,13 @@ namespace FlightSimulatorApp.View
             DataContext = vm;
 
             InitializeComponent();
+            WindowStartupLocation = WindowStartupLocation.CenterScreen;
         }
 
         private void connectButton_Click(object sender, RoutedEventArgs e)
         {
-            model.connect("127.0.0.1", 5402);
-            model.start();
-            statusValue.Text = "Connected";
-            statusValue.Foreground = new SolidColorBrush(Colors.Green);
+            ConnectWindow window = new ConnectWindow();
+            window.Show();           
         }
 
         private void disconnectButton_Click(object sender, RoutedEventArgs e)
@@ -57,6 +56,12 @@ namespace FlightSimulatorApp.View
             model.disconnect();
             statusValue.Text = "Disconnected";
             statusValue.Foreground = new SolidColorBrush(Colors.Red);
+        }
+
+        internal void Connect(string ip, int port)
+        {
+            model.connect(ip, port);
+            model.start();
         }
     }
 }
