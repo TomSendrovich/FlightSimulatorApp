@@ -66,6 +66,7 @@ namespace FlightSimulatorApp
         public double VM_Throttle
         {
             get { return model.Throttle; }
+            set { model.Throttle = value;}
         }
         public double VM_Aileron
         {
@@ -78,6 +79,7 @@ namespace FlightSimulatorApp
         public double VM_Rudder
         {
             get { return model.Rudder; }
+            set { model.Rudder = value;}
         }
         public double VM_Latitude
         {
