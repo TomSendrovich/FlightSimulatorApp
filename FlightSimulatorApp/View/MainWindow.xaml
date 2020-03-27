@@ -50,7 +50,7 @@
                     m:MapLayer.PositionOrigin="BottomCenter" Height="30" Width="30"
                     Visibility="Hidden">
 
-                    <Image x:Name="Pin" Source="pin.png" />
+                    <Image x:Name="Pin" Source="map-marker.png" />
                 </Canvas>
 
             </m:Map>

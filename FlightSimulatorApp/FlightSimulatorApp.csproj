@@ -122,7 +122,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="View\pin.png" />
+    <Resource Include="View\airplane.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\map-marker.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
