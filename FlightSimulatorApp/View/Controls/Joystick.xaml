@@ -4,9 +4,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="600" d:DesignWidth="800">
     <Grid>
-        <Canvas  x:Name="Base" Margin="50,0,0,100" Width="340" Height="340">
+        <Canvas  x:Name="Base" Margin="0,0,0,0" Width="340" Height="340">
             <Ellipse HorizontalAlignment="Left" Height="340" VerticalAlignment="Top" Width="340">
                 <Ellipse.Fill>
                     <RadialGradientBrush>
@@ -135,19 +135,32 @@
             </Canvas>
         </Canvas>
 
-        <!-- Throttle Slider -->
+        <!-- Rudder Title -->
+        <Grid>
+            <TextBlock x:Name="RudderText" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,10,0,0" FontSize="30">Rudder</TextBlock>
+        </Grid>
+
+        <!-- Elevator Title -->
+        <Grid>
+            <TextBlock x:Name="ElevatorText" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,10,0,0" FontSize="30">Elevator</TextBlock>
+            <Grid.LayoutTransform>
+                <RotateTransform Angle="90"/>
+            </Grid.LayoutTransform>
+        </Grid>
+
+        <!-- Aileron Slider -->
         <Grid>
             <Grid.LayoutTransform>
                 <RotateTransform Angle="90"/>
             </Grid.LayoutTransform>
-            <Slider x:Name="ThrottleSlider" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Margin="0,0,100,50" TickPlacement="BottomRight" Value="{Binding Path=VM_Throttle , Mode=OneWayToSource}" TickFrequency="10" IsSnapToTickEnabled="True" Maximum="100"/>
-            <TextBlock x:Name="ThrottleText" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,100,20" FontSize="30" >Throttle</TextBlock>
+            <Slider x:Name="AileronSlider" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Margin="100,0,100,50" TickPlacement="BottomRight" Value="{Binding Path=VM_Aileron , Mode=OneWayToSource}" TickFrequency="10" IsSnapToTickEnabled="True" Maximum="100"/>
+            <TextBlock x:Name="AileronText" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,10" FontSize="30" >Aileron</TextBlock>
         </Grid>
 
-        <!-- Rudder Slider -->
+        <!-- Throttle Slider -->
         <Grid>
-            <Slider x:Name="RudderSlider" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Margin="50,0,0,50" TickPlacement="BottomRight" Value="{Binding Path=VM_Rudder, Mode=OneWayToSource}" TickFrequency="10" IsSnapToTickEnabled="True" Maximum="100" />
-            <TextBlock x:Name="RudderText" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="50,0,0,20" FontSize="30">Rudder</TextBlock>
+            <Slider x:Name="ThrottleSlider" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Margin="150,0,150,50" TickPlacement="BottomRight" Value="{Binding Path=VM_Throttle, Mode=OneWayToSource}" TickFrequency="10" IsSnapToTickEnabled="True" Maximum="100" />
+            <TextBlock x:Name="ThrottleText" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,10" FontSize="30">Throttle</TextBlock>
         </Grid>
 
     </Grid>

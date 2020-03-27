@@ -71,10 +71,12 @@ namespace FlightSimulatorApp
         public double VM_Aileron
         {
             get { return model.Aileron; }
+            set { model.Aileron = value; }
         }
         public double VM_Elevator
         {
             get { return model.Elevator; }
+            set { model.Elevator = value; }
         }
         public double VM_Rudder
         {
