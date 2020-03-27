@@ -194,32 +194,68 @@ namespace FlightSimulatorApp
         public double Throttle
         {
             get { return throttle; }
-            set { throttle = value; NotifyPropertyChanged("Throttle"); }
+            set
+            {
+                if (value >= 1) { throttle = 1; }
+                else if (value <= 0) { throttle = 0; }
+                else { throttle = value; }
+                NotifyPropertyChanged("Throttle");
+            }
         }
         public double Aileron
         {
             get { return aileron; }
-            set { aileron = value; NotifyPropertyChanged("Aileron"); }
+            set
+            {
+                if (value >= 1) { aileron = 1; }
+                else if (value <= -1) { aileron = -1; }
+                else { aileron = value; }
+                NotifyPropertyChanged("Aileron");
+            }
         }
         public double Elevator
         {
             get { return elevator; }
-            set { elevator = value; NotifyPropertyChanged("Elevator"); }
+            set
+            {
+                if (value >= 1) { elevator = 1; }
+                else if (value <= -1) { elevator = -1; }
+                else { elevator = value; }
+                NotifyPropertyChanged("Elevator");
+            }
         }
         public double Rudder
         {
             get { return rudder; }
-            set { rudder = value; NotifyPropertyChanged("Rudder"); }
+            set
+            {
+                if (value >= 1) { rudder = 1; }
+                else if (value <= -1) { rudder = -1; }
+                else { rudder = value; }
+                NotifyPropertyChanged("Rudder");
+            }
         }
         public double Latitude
         {
             get { return latitude; }
-            set { latitude = value; NotifyPropertyChanged("Latitude"); }
+            set
+            {
+                if (value >= 90) { latitude = 90; }
+                else if (value <= -90) { latitude = -90; }
+                else { latitude = value; }
+                NotifyPropertyChanged("Latitude");
+            }
         }
         public double Longitude
         {
             get { return longitude; }
-            set { longitude = value; NotifyPropertyChanged("Longitude"); }
+            set
+            {
+                if (value >= 180) { longitude = 180; }
+                else if (value <= -180) { longitude = -180; }
+                else { longitude = value; }
+                NotifyPropertyChanged("Longitude");
+            }
         }
         public string Location
         {
