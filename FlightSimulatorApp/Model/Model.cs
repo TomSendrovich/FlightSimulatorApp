@@ -27,6 +27,7 @@ namespace FlightSimulatorApp
         const string LONGITUDE = "/position/longitude-deg";
 
         TcpClient tcpClient;
+        private static Mutex mut = new Mutex();
         volatile Boolean stop;
 
         private double heading, verticalSpeed, groundSpeed, airSpeed, altitude, roll, pitch, altimeter, throttle, aileron, elevator, rudder, latitude, longitude;
@@ -39,7 +40,7 @@ namespace FlightSimulatorApp
         public Model(TcpClient tcpClient)
         {
             this.tcpClient = tcpClient;
-            stop = false;
+            stop = true;
         }
 
         public void connect(string ip, int port)
@@ -55,6 +56,7 @@ namespace FlightSimulatorApp
         {
             new Thread(delegate ()
             {
+                stop = false;
                 string value, tmpLongitude, tmpLatitude;
                 double value_d;
                 while (!stop)
@@ -121,6 +123,8 @@ namespace FlightSimulatorApp
 
         private string GetParameter(string param)
         {
+            mut.WaitOne();
+
             // Translate the passed message into ASCII and store it as a Byte array.
             Byte[] data = System.Text.Encoding.ASCII.GetBytes("get " + param + "\n");
 
@@ -130,7 +134,7 @@ namespace FlightSimulatorApp
             // Send the message to the connected TcpServer. 
             stream.Write(data, 0, data.Length);
 
-            //Console.WriteLine("Sent: {0}", param);
+            //Console.WriteLine("Sent: {0}", data);
 
             // Receive the TcpServer.response.
 
@@ -145,6 +149,42 @@ namespace FlightSimulatorApp
             responseData = System.Text.Encoding.ASCII.GetString(data, 0, bytes);
 
             //Console.WriteLine("Received: {0}", responseData);
+
+            mut.ReleaseMutex();
+
+            return responseData;
+        }
+
+        public string SetParameter(string param, double paramValue)
+        {
+            mut.WaitOne();
+
+            // Translate the passed message into ASCII and store it as a Byte array.
+            Byte[] data = System.Text.Encoding.ASCII.GetBytes("set " + param + " " + paramValue + "\n");
+
+            // Get a client stream for reading and writing.
+            NetworkStream stream = tcpClient.GetStream();
+
+            // Send the message to the connected TcpServer. 
+            stream.Write(data, 0, data.Length);
+
+            Console.WriteLine("Sent: {0}", data.ToString());
+
+            // Receive the TcpServer.response.
+
+            // Buffer to store the response bytes.
+            data = new Byte[256];
+
+            // String to store the response ASCII representation.
+            String responseData = String.Empty;
+
+            // Read the first batch of the TcpServer response bytes.
+            Int32 bytes = stream.Read(data, 0, data.Length);
+            responseData = System.Text.Encoding.ASCII.GetString(data, 0, bytes);
+
+            Console.WriteLine("Received: {0}", responseData);
+
+            mut.ReleaseMutex();
 
             return responseData;
         }
@@ -196,10 +236,16 @@ namespace FlightSimulatorApp
             get { return throttle; }
             set
             {
-                if (value >= 1) { throttle = 1; }
-                else if (value <= 0) { throttle = 0; }
-                else { throttle = value; }
-                NotifyPropertyChanged("Throttle");
+                if (throttle != value)
+                {
+                    if (value >= 1) { throttle = 1; }
+                    else if (value <= 0) { throttle = 0; }
+                    else { throttle = value; }
+
+                    if (!stop) { SetParameter(THROTTLE, value); }
+
+                    NotifyPropertyChanged("Throttle");
+                }
             }
         }
         public double Aileron
@@ -207,10 +253,16 @@ namespace FlightSimulatorApp
             get { return aileron; }
             set
             {
-                if (value >= 1) { aileron = 1; }
-                else if (value <= -1) { aileron = -1; }
-                else { aileron = value; }
-                NotifyPropertyChanged("Aileron");
+                if (aileron != value)
+                {
+                    if (value >= 1) { aileron = 1; }
+                    else if (value <= -1) { aileron = -1; }
+                    else { aileron = value; }
+
+                    if (!stop) { SetParameter(AILERON, value); }
+
+                    NotifyPropertyChanged("Aileron");
+                }
             }
         }
         public double Elevator
@@ -218,10 +270,16 @@ namespace FlightSimulatorApp
             get { return elevator; }
             set
             {
-                if (value >= 1) { elevator = 1; }
-                else if (value <= -1) { elevator = -1; }
-                else { elevator = value; }
-                NotifyPropertyChanged("Elevator");
+                if (elevator != value)
+                {
+                    if (value >= 1) { elevator = 1; }
+                    else if (value <= -1) { elevator = -1; }
+                    else { elevator = value; }
+
+                    if (!stop) { SetParameter(ELEVATOR, value); }
+
+                    NotifyPropertyChanged("Elevator");
+                }
             }
         }
         public double Rudder
@@ -229,10 +287,16 @@ namespace FlightSimulatorApp
             get { return rudder; }
             set
             {
-                if (value >= 1) { rudder = 1; }
-                else if (value <= -1) { rudder = -1; }
-                else { rudder = value; }
-                NotifyPropertyChanged("Rudder");
+                if (rudder != value)
+                {
+                    if (value >= 1) { rudder = 1; }
+                    else if (value <= -1) { rudder = -1; }
+                    else { rudder = value; }
+
+                    if (!stop) { SetParameter(RUDDER, value); }
+
+                    NotifyPropertyChanged("Rudder");
+                }
             }
         }
         public double Latitude
