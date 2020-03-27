@@ -29,7 +29,6 @@ namespace FlightSimulatorApp.View.Controls
             InitializeComponent();
         }
 
-
         private void centerKnob_Completed(Object sender, EventArgs e)
         {
             // Not developed yet.
@@ -42,7 +41,7 @@ namespace FlightSimulatorApp.View.Controls
             {
                 firstPoint = e.GetPosition(this);
                 mousePressed = true;
-                
+
             }
         }
 
@@ -56,6 +55,8 @@ namespace FlightSimulatorApp.View.Controls
                 {
                     knobPosition.X = x;
                     knobPosition.Y = y;
+
+                    //Console.WriteLine("x: " + x + ", y: " + y);
                 }
             }
         }
@@ -67,12 +68,11 @@ namespace FlightSimulatorApp.View.Controls
             knobPosition.Y = 0;
         }
 
-        //helping method
-        private double length(double x, double y, double x1, double y1)
-        {
-            return Math.Sqrt((x1 - x) * (x1 - x) + (y1 - y) * (y1 - y));
-        }
+        //helping methods
+
+        /* private double Length(double x, double y, double x1, double y1)
+         {
+             return Math.Sqrt((x1 - x) * (x1 - x) + (y1 - y) * (y1 - y));
+         }*/
     }
-
-
 }

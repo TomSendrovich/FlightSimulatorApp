@@ -276,7 +276,7 @@ namespace FlightSimulatorApp
                     else if (value <= -1) { elevator = -1; }
                     else { elevator = value; }
 
-                    if (!stop) { SetParameter(ELEVATOR, value); }
+                    if (!stop) { SetParameter(ELEVATOR, Normalize(value)); }
 
                     NotifyPropertyChanged("Elevator");
                 }
@@ -293,7 +293,7 @@ namespace FlightSimulatorApp
                     else if (value <= -1) { rudder = -1; }
                     else { rudder = value; }
 
-                    if (!stop) { SetParameter(RUDDER, value); }
+                    if (!stop) { SetParameter(RUDDER, Normalize(value)); }
 
                     NotifyPropertyChanged("Rudder");
                 }
@@ -325,6 +325,16 @@ namespace FlightSimulatorApp
         {
             get { return location; }
             set { location = value; NotifyPropertyChanged("Location"); }
+        }
+
+        private double Normalize(double value)
+        {
+            double min = -170, max = 170; //range of original joystick is [-170,170]
+
+            //formula to normalize to [-1,1]
+            double retVal = 2 * ((value - min) / (max - min)) - 1;
+
+            return retVal;
         }
 
         public void NotifyPropertyChanged(string PropName)
