@@ -133,7 +133,7 @@
                                 <BackEase EasingMode="EaseInOut" />
                             </DoubleAnimation.EasingFunction>
                         </DoubleAnimation>
-                        
+
                     </Storyboard>
                 </Canvas.Resources>
             </Canvas>
@@ -157,13 +157,15 @@
             <Grid.LayoutTransform>
                 <RotateTransform Angle="90"/>
             </Grid.LayoutTransform>
-            <Slider x:Name="AileronSlider" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Margin="100,0,100,50" TickPlacement="BottomRight" Value="{Binding Path=VM_Aileron , Mode=OneWayToSource}" TickFrequency="0.1" IsSnapToTickEnabled="True" Minimum="-1" Maximum="1"/>
+            <Slider x:Name="AileronSlider" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Margin="100,0,100,50" TickPlacement="BottomRight"
+                    Value="{Binding Path=VM_Aileron , Mode=OneWayToSource}" TickFrequency="0.1" IsSnapToTickEnabled="True" Minimum="-1" Maximum="1"/>
             <TextBlock x:Name="AileronText" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,10" FontSize="30" >Aileron</TextBlock>
         </Grid>
 
         <!-- Throttle Slider -->
         <Grid>
-            <Slider x:Name="ThrottleSlider" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Margin="150,0,150,50" TickPlacement="BottomRight" Value="{Binding Path=VM_Throttle, Mode=OneWayToSource}" TickFrequency="0.1" IsSnapToTickEnabled="True" Minimum="0" Maximum="1" />
+            <Slider x:Name="ThrottleSlider" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Margin="150,0,150,50" TickPlacement="BottomRight"
+                    Value="{Binding Path=VM_Throttle, Mode=OneWayToSource}" TickFrequency="0.1" IsSnapToTickEnabled="True" Minimum="0" Maximum="1" />
             <TextBlock x:Name="ThrottleText" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,10" FontSize="30">Throttle</TextBlock>
         </Grid>
 
