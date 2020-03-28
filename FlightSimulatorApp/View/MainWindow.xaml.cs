@@ -57,8 +57,15 @@ namespace FlightSimulatorApp.View
             try
             {
                 vm.Connect(ip, port);
-                vm.Start();
-                updateUI(true);
+                if (vm.IsConnected())
+                {
+                    vm.Start();
+                    updateUI(true);
+                }
+                else
+                {
+                    updateUI(false);
+                }
             }
             catch (Exception e)
             {

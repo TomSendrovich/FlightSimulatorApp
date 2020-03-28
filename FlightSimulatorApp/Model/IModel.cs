@@ -13,6 +13,7 @@ namespace FlightSimulatorApp
         void Connect(string ip, int port);
         void Disconnect();
         void Start();
+        bool IsConnected();
 
         //properties
         double Heading { get; set; }

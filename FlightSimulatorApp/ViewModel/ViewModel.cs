@@ -41,6 +41,10 @@ namespace FlightSimulatorApp
         {
             model.Start();
         }
+        public bool IsConnected()
+        {
+            return model.IsConnected();
+        }
 
         #region Public Properties
         public double VM_Heading

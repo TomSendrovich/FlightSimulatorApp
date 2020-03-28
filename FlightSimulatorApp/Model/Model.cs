@@ -137,6 +137,10 @@ namespace FlightSimulatorApp
                 Console.WriteLine("Client thread has been Stopped!");
             }).Start();
         }
+        public bool IsConnected()
+        {
+            return tcpClient.Connected;
+        }
 
         private string GetParameter(string param)
         {
