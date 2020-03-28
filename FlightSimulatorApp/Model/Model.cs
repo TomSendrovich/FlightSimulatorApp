@@ -32,7 +32,7 @@ namespace FlightSimulatorApp
         volatile Boolean stop;
 
         private double heading, verticalSpeed, groundSpeed, airSpeed, altitude, roll, pitch, altimeter, throttle, aileron, elevator, rudder, latitude, longitude;
-        private string location;
+        private string location, errorInfo;
 
         //INotifyPropertyChanged implementation
         public event PropertyChangedEventHandler PropertyChanged;
@@ -50,13 +50,21 @@ namespace FlightSimulatorApp
             catch (SocketException e)
             {
                 Console.WriteLine("Error: " + e.Message);
+                ErrorInfo = "Error: " + e.Message;
+
             }
         }
         public void Disconnect()
         {
             stop = true;
-            stream.Close();
-            tcpClient.Close();
+            if (stream != null)
+            {
+                stream.Close();
+            }
+            if (tcpClient != null)
+            {
+                tcpClient.Close();
+            }
         }
         public bool IsConnected() { return tcpClient.Connected; }
         public void Start()
@@ -64,6 +72,7 @@ namespace FlightSimulatorApp
             if (!tcpClient.Connected)
             {
                 Console.WriteLine("Error: Server is disconnected");
+                ErrorInfo = "Error: Server is disconnected";
                 Disconnect();
                 return;
             }
@@ -306,6 +315,21 @@ namespace FlightSimulatorApp
         {
             get { return location; }
             set { location = value; NotifyPropertyChanged("Location"); }
+        }
+        public string ErrorInfo
+        {
+            get { return errorInfo; }
+            set
+            {
+                errorInfo = value;
+                NotifyPropertyChanged("ErrorInfo");
+                new Thread(delegate ()
+                {
+                    Thread.Sleep(7000);
+                    errorInfo = "";
+                    NotifyPropertyChanged("ErrorInfo");
+                }).Start();
+            }
         }
 
         private double Normalize(double value)

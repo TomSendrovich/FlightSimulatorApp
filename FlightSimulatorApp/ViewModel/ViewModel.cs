@@ -111,6 +111,10 @@ namespace FlightSimulatorApp
         {
             get { return model.Location; }
         }
+        public string VM_ErrorInfo
+        {
+            get { return model.ErrorInfo; }
+        }
     }
     #endregion
 }
