@@ -38,16 +38,13 @@ namespace FlightSimulatorApp
         public event PropertyChangedEventHandler PropertyChanged;
 
         //Constructor
-        public Model(TcpClient tcpClient)
-        {
-            this.tcpClient = tcpClient;
-            stop = true;
-        }
+        public Model() { stop = true; }
 
         public void Connect(string ip, int port)
         {
             try
             {
+                tcpClient = new TcpClient();
                 tcpClient.Connect(ip, port);
             }
             catch (SocketException e)
@@ -58,9 +55,11 @@ namespace FlightSimulatorApp
         public void Disconnect()
         {
             stop = true;
+            stream.Close();
             tcpClient.Close();
-            //tcpClient.Dispose();
         }
+        public bool IsConnected() { return tcpClient.Connected; }
+
         public void Start()
         {
             if (!tcpClient.Connected)
@@ -134,20 +133,18 @@ namespace FlightSimulatorApp
                         Console.WriteLine("SocketException: {0}", e);
                     }
                 }
-                Console.WriteLine("Client thread has been Stopped!");
+                System.Diagnostics.Debug.WriteLine("Client thread has been Stopped!");
             }).Start();
-        }
-        public bool IsConnected()
-        {
-            return tcpClient.Connected;
         }
 
         private string GetParameter(string param)
         {
             mut.WaitOne();
 
+            string command = "get " + param + "\n";
+
             // Translate the passed message into ASCII and store it as a Byte array.
-            Byte[] data = System.Text.Encoding.ASCII.GetBytes("get " + param + "\n");
+            Byte[] data = System.Text.Encoding.ASCII.GetBytes(command);
 
             // Get a client stream for reading and writing.
             stream = tcpClient.GetStream();
@@ -155,7 +152,7 @@ namespace FlightSimulatorApp
             // Send the message to the connected TcpServer. 
             stream.Write(data, 0, data.Length);
 
-            //Console.WriteLine("Sent: {0}", data);
+            //Console.WriteLine("Sent: {0}", command);
 
             // Receive the TcpServer.response.
 
@@ -180,8 +177,10 @@ namespace FlightSimulatorApp
         {
             mut.WaitOne();
 
+            string command = "set " + param + " " + paramValue + "\n";
+
             // Translate the passed message into ASCII and store it as a Byte array.
-            Byte[] data = System.Text.Encoding.ASCII.GetBytes("set " + param + " " + paramValue + "\n");
+            Byte[] data = System.Text.Encoding.ASCII.GetBytes(command);
 
             // Get a client stream for reading and writing.
             stream = tcpClient.GetStream();
@@ -189,7 +188,7 @@ namespace FlightSimulatorApp
             // Send the message to the connected TcpServer. 
             stream.Write(data, 0, data.Length);
 
-            Console.WriteLine("Sent: {0}", data.ToString());
+            //Console.WriteLine("Sent: {0}", command);
 
             // Receive the TcpServer.response.
 
@@ -203,7 +202,7 @@ namespace FlightSimulatorApp
             Int32 bytes = stream.Read(data, 0, data.Length);
             responseData = System.Text.Encoding.ASCII.GetString(data, 0, bytes);
 
-            Console.WriteLine("Received: {0}", responseData);
+            //Console.WriteLine("Received: {0}", responseData);
 
             mut.ReleaseMutex();
 

@@ -27,29 +27,29 @@ namespace FlightSimulatorApp.View
         ViewModel vm;
         public MainWindow()
         {
-            vm = new ViewModel(new Model(new TcpClient()));
+            vm = new ViewModel(new Model());
             DataContext = vm;
 
             InitializeComponent();
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
         }
 
-        private void connectButton_Click(object sender, RoutedEventArgs e)
+        private void ConnectButton_Click(object sender, RoutedEventArgs e)
         {
             ConnectWindow window = new ConnectWindow();
             window.ShowDialog();
         }
 
-        private void disconnectButton_Click(object sender, RoutedEventArgs e)
+        private void DisconnectButton_Click(object sender, RoutedEventArgs e)
         {
             vm.Disconnect();
-            updateUI(false);
+            UpdateUI(false);
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             vm.Disconnect();
-            updateUI(false);
+            UpdateUI(false);
         }
 
         internal void Connect(string ip, int port)
@@ -59,12 +59,13 @@ namespace FlightSimulatorApp.View
                 vm.Connect(ip, port);
                 if (vm.IsConnected())
                 {
+                    System.Diagnostics.Debug.WriteLine("Client is connected successfully!");
                     vm.Start();
-                    updateUI(true);
+                    UpdateUI(true);
                 }
                 else
                 {
-                    updateUI(false);
+                    UpdateUI(false);
                 }
             }
             catch (Exception e)
@@ -78,7 +79,7 @@ namespace FlightSimulatorApp.View
 
         }
 
-        public void updateUI(bool isConnected)
+        public void UpdateUI(bool isConnected)
         {
             if (isConnected)
             {

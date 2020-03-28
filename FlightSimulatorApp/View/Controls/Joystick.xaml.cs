@@ -22,7 +22,7 @@ namespace FlightSimulatorApp.View.Controls
     {
         //data members
         private Point firstPoint = new Point();
-        bool mousePressed;
+        //bool mousePressed;
 
         public Joystick()
         {
@@ -40,7 +40,7 @@ namespace FlightSimulatorApp.View.Controls
             if (e.ChangedButton == MouseButton.Left)
             {
                 firstPoint = e.GetPosition(this);
-                mousePressed = true;
+                //mousePressed = true;
 
             }
         }
@@ -63,7 +63,7 @@ namespace FlightSimulatorApp.View.Controls
 
         private void Knob_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            mousePressed = false;
+            //mousePressed = false;
             knobPosition.X = 0;
             knobPosition.Y = 0;
         }
