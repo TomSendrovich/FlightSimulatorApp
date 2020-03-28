@@ -39,7 +39,7 @@ namespace FlightSimulatorApp.View
         private void connectButton_Click(object sender, RoutedEventArgs e)
         {
             ConnectWindow window = new ConnectWindow();
-            window.Show();
+            window.ShowDialog();
         }
 
         private void disconnectButton_Click(object sender, RoutedEventArgs e)
