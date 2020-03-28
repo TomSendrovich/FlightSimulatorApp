@@ -59,7 +59,6 @@ namespace FlightSimulatorApp
             tcpClient.Close();
         }
         public bool IsConnected() { return tcpClient.Connected; }
-
         public void Start()
         {
             if (!tcpClient.Connected)
@@ -78,44 +77,44 @@ namespace FlightSimulatorApp
                 {
                     try
                     {
-                        value = GetParameter(HEADING);
+                        value = SendCommand(HEADING, false);
                         value_d = Double.Parse(value);
                         Heading = Math.Round(value_d, 2, MidpointRounding.ToEven);
 
-                        value = GetParameter(VERTICAL_SPEED);
+                        value = SendCommand(VERTICAL_SPEED, false);
                         value_d = Double.Parse(value);
                         VerticalSpeed = Math.Round(value_d, 2, MidpointRounding.ToEven);
 
-                        value = GetParameter(GROUND_SPEED);
+                        value = SendCommand(GROUND_SPEED, false);
                         value_d = Double.Parse(value);
                         GroundSpeed = Math.Round(value_d, 2, MidpointRounding.ToEven);
 
-                        value = GetParameter(AIR_SPEED);
+                        value = SendCommand(AIR_SPEED, false);
                         value_d = Double.Parse(value);
                         AirSpeed = Math.Round(value_d, 2, MidpointRounding.ToEven);
 
-                        value = GetParameter(ALTITUDE);
+                        value = SendCommand(ALTITUDE, false);
                         value_d = Double.Parse(value);
                         Altitude = Math.Round(value_d, 2, MidpointRounding.ToEven);
 
-                        value = GetParameter(ROLL);
+                        value = SendCommand(ROLL, false);
                         value_d = Double.Parse(value);
                         Roll = Math.Round(value_d, 2, MidpointRounding.ToEven);
 
-                        value = GetParameter(PITCH);
+                        value = SendCommand(PITCH, false);
                         value_d = Double.Parse(value);
                         Pitch = Math.Round(value_d, 2, MidpointRounding.ToEven);
 
-                        value = GetParameter(ALTIMETER);
+                        value = SendCommand(ALTIMETER, false);
                         value_d = Double.Parse(value);
                         Altimeter = Math.Round(value_d, 2, MidpointRounding.ToEven);
 
-                        value = GetParameter(LATITUDE);
+                        value = SendCommand(LATITUDE, false);
                         tmpLatitude = value;
                         value_d = Double.Parse(value);
                         Latitude = Math.Round(value_d, 4, MidpointRounding.ToEven);
 
-                        value = GetParameter(LONGITUDE);
+                        value = SendCommand(LONGITUDE, false);
                         tmpLongitude = value;
                         value_d = Double.Parse(value);
                         Longitude = Math.Round(value_d, 4, MidpointRounding.ToEven);
@@ -136,75 +135,37 @@ namespace FlightSimulatorApp
                 System.Diagnostics.Debug.WriteLine("Client thread has been Stopped!");
             }).Start();
         }
-
-        private string GetParameter(string param)
+        public string SendCommand(string param, bool type)
         {
-            mut.WaitOne();
-
-            string command = "get " + param + "\n";
-
-            // Translate the passed message into ASCII and store it as a Byte array.
-            Byte[] data = System.Text.Encoding.ASCII.GetBytes(command);
-
-            // Get a client stream for reading and writing.
-            stream = tcpClient.GetStream();
-
-            // Send the message to the connected TcpServer. 
-            stream.Write(data, 0, data.Length);
-
-            //Console.WriteLine("Sent: {0}", command);
-
-            // Receive the TcpServer.response.
-
-            // Buffer to store the response bytes.
-            data = new Byte[256];
-
-            // String to store the response ASCII representation.
-            String responseData = String.Empty;
-
-            // Read the first batch of the TcpServer response bytes.
-            Int32 bytes = stream.Read(data, 0, data.Length);
-            responseData = System.Text.Encoding.ASCII.GetString(data, 0, bytes);
-
-            //Console.WriteLine("Received: {0}", responseData);
-
-            mut.ReleaseMutex();
-
-            return responseData;
+            return SendCommand(param, false, 0);
         }
-
-        public string SetParameter(string param, double paramValue)
+        public string SendCommand(string param, bool type, double paramValue)
         {
-            mut.WaitOne();
+            //mut.WaitOne();
+            string command;
 
-            string command = "set " + param + " " + paramValue + "\n";
+            if (!type) { command = "get " + param + "\n"; }
+            else { command = "set " + param + " " + paramValue + "\n"; }
 
-            // Translate the passed message into ASCII and store it as a Byte array.
-            Byte[] data = System.Text.Encoding.ASCII.GetBytes(command);
+            Byte[] data = System.Text.Encoding.ASCII.GetBytes(command); /// Translate the passed message into ASCII and store it as a Byte array.
 
-            // Get a client stream for reading and writing.
-            stream = tcpClient.GetStream();
+            stream = tcpClient.GetStream(); /// Get a client stream for reading and writing.
 
-            // Send the message to the connected TcpServer. 
-            stream.Write(data, 0, data.Length);
+            stream.Write(data, 0, data.Length); /// Send the message to the connected TcpServer. 
 
             //Console.WriteLine("Sent: {0}", command);
 
-            // Receive the TcpServer.response.
+            data = new Byte[256]; ///  Receive the TcpServer.response. Buffer to store the response bytes.
 
-            // Buffer to store the response bytes.
-            data = new Byte[256];
+            String responseData = String.Empty; /// String to store the response ASCII representation.
 
-            // String to store the response ASCII representation.
-            String responseData = String.Empty;
-
-            // Read the first batch of the TcpServer response bytes.
+            /// Read the first batch of the TcpServer response bytes.
             Int32 bytes = stream.Read(data, 0, data.Length);
             responseData = System.Text.Encoding.ASCII.GetString(data, 0, bytes);
 
             //Console.WriteLine("Received: {0}", responseData);
 
-            mut.ReleaseMutex();
+            //mut.ReleaseMutex();
 
             return responseData;
         }
@@ -262,7 +223,7 @@ namespace FlightSimulatorApp
                     else if (value <= 0) { throttle = 0; }
                     else { throttle = value; }
 
-                    if (!stop) { SetParameter(THROTTLE, value); }
+                    if (!stop) { SendCommand(THROTTLE, true, value); }
 
                     NotifyPropertyChanged("Throttle");
                 }
@@ -279,7 +240,7 @@ namespace FlightSimulatorApp
                     else if (value <= -1) { aileron = -1; }
                     else { aileron = value; }
 
-                    if (!stop) { SetParameter(AILERON, value); }
+                    if (!stop) { SendCommand(AILERON, true, value); }
 
                     NotifyPropertyChanged("Aileron");
                 }
@@ -296,7 +257,7 @@ namespace FlightSimulatorApp
                     else if (value <= -1) { elevator = -1; }
                     else { elevator = value; }
 
-                    if (!stop) { SetParameter(ELEVATOR, Normalize(value)); }
+                    if (!stop) { SendCommand(ELEVATOR, true, Normalize(value)); }
 
                     NotifyPropertyChanged("Elevator");
                 }
@@ -313,7 +274,7 @@ namespace FlightSimulatorApp
                     else if (value <= -1) { rudder = -1; }
                     else { rudder = value; }
 
-                    if (!stop) { SetParameter(RUDDER, Normalize(value)); }
+                    if (!stop) { SendCommand(RUDDER, true, Normalize(value)); }
 
                     NotifyPropertyChanged("Rudder");
                 }
