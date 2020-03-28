@@ -27,9 +27,7 @@ namespace FlightSimulatorApp.View
         ViewModel vm;
         public MainWindow()
         {
-            TcpClient tcpClient = new TcpClient();
-
-            vm = new ViewModel(new Model(tcpClient));
+            vm = new ViewModel(new Model(new TcpClient()));
             DataContext = vm;
 
             InitializeComponent();
@@ -44,37 +42,57 @@ namespace FlightSimulatorApp.View
 
         private void disconnectButton_Click(object sender, RoutedEventArgs e)
         {
-            vm.disconnect();
-            statusValue.Content = "Disconnected";
-            statusValue.Foreground = new SolidColorBrush(Colors.Red);
-            latitudeValue.Visibility = Visibility.Hidden;
-            latitudeTitle.Visibility = Visibility.Hidden;
-            longitudeValue.Visibility = Visibility.Hidden;
-            longitudeTitle.Visibility = Visibility.Hidden;
-            mapCanvas.Visibility = Visibility.Hidden;
+            vm.Disconnect();
+            updateUI(false);
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            vm.disconnect();
+            vm.Disconnect();
+            updateUI(false);
         }
 
         internal void Connect(string ip, int port)
         {
-            vm.connect(ip, port);
-            vm.start();
-            statusValue.Content = "Connected";
-            statusValue.Foreground = new SolidColorBrush(Colors.Green);
-            latitudeValue.Visibility = Visibility.Visible;
-            latitudeTitle.Visibility = Visibility.Visible;
-            longitudeValue.Visibility = Visibility.Visible;
-            longitudeTitle.Visibility = Visibility.Visible;
-            mapCanvas.Visibility = Visibility.Visible;
+            try
+            {
+                vm.Connect(ip, port);
+                vm.Start();
+                updateUI(true);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
         }
 
         private void dashboard_Loaded(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        public void updateUI(bool isConnected)
+        {
+            if (isConnected)
+            {
+                statusValue.Content = "Connected";
+                statusValue.Foreground = new SolidColorBrush(Colors.Green);
+                latitudeValue.Visibility = Visibility.Visible;
+                latitudeTitle.Visibility = Visibility.Visible;
+                longitudeValue.Visibility = Visibility.Visible;
+                longitudeTitle.Visibility = Visibility.Visible;
+                mapCanvas.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                statusValue.Content = "Disconnected";
+                statusValue.Foreground = new SolidColorBrush(Colors.Red);
+                latitudeValue.Visibility = Visibility.Hidden;
+                latitudeTitle.Visibility = Visibility.Hidden;
+                longitudeValue.Visibility = Visibility.Hidden;
+                longitudeTitle.Visibility = Visibility.Hidden;
+                mapCanvas.Visibility = Visibility.Hidden;
+            }
         }
     }
 }

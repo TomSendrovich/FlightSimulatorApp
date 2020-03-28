@@ -29,17 +29,17 @@ namespace FlightSimulatorApp
                 this.PropertyChanged(this, new PropertyChangedEventArgs(propName));
             }
         }
-        public void disconnect()
+        public void Disconnect()
         {
-            model.disconnect();
+            model.Disconnect();
         }
-        public void connect(string ip, int port)
+        public void Connect(string ip, int port)
         {
-            model.connect(ip,port);
+            model.Connect(ip, port);
         }
-        public void start()
+        public void Start()
         {
-            model.start();
+            model.Start();
         }
 
         #region Public Properties
