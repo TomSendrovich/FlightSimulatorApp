@@ -25,13 +25,11 @@ namespace FlightSimulatorApp.View
     public partial class MainWindow : Window
     {
         ViewModel vm;
-        Model model;
         public MainWindow()
         {
             TcpClient tcpClient = new TcpClient();
-            model = new Model(tcpClient);
 
-            vm = new ViewModel(model);
+            vm = new ViewModel(new Model(tcpClient));
             DataContext = vm;
 
             InitializeComponent();
@@ -46,7 +44,7 @@ namespace FlightSimulatorApp.View
 
         private void disconnectButton_Click(object sender, RoutedEventArgs e)
         {
-            model.disconnect();
+            vm.disconnect();
             statusValue.Content = "Disconnected";
             statusValue.Foreground = new SolidColorBrush(Colors.Red);
             latitudeValue.Visibility = Visibility.Hidden;
@@ -58,13 +56,13 @@ namespace FlightSimulatorApp.View
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            model.disconnect();
+            vm.disconnect();
         }
 
         internal void Connect(string ip, int port)
         {
-            model.connect(ip, port);
-            model.start();
+            vm.connect(ip, port);
+            vm.start();
             statusValue.Content = "Connected";
             statusValue.Foreground = new SolidColorBrush(Colors.Green);
             latitudeValue.Visibility = Visibility.Visible;

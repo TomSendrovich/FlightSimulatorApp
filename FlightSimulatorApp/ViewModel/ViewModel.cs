@@ -29,6 +29,18 @@ namespace FlightSimulatorApp
                 this.PropertyChanged(this, new PropertyChangedEventArgs(propName));
             }
         }
+        public void disconnect()
+        {
+            model.disconnect();
+        }
+        public void connect(string ip, int port)
+        {
+            model.connect(ip,port);
+        }
+        public void start()
+        {
+            model.start();
+        }
 
         #region Public Properties
         public double VM_Heading
