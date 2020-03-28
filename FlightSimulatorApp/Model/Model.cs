@@ -27,6 +27,7 @@ namespace FlightSimulatorApp
         const string LONGITUDE = "/position/longitude-deg";
 
         TcpClient tcpClient;
+        NetworkStream stream;
         private static Mutex mut = new Mutex();
         volatile Boolean stop;
 
@@ -43,17 +44,32 @@ namespace FlightSimulatorApp
             stop = true;
         }
 
-        public void connect(string ip, int port)
+        public void Connect(string ip, int port)
         {
-            tcpClient.Connect(ip, port);
+            try
+            {
+                tcpClient.Connect(ip, port);
+            }
+            catch (SocketException e)
+            {
+                Console.WriteLine("Error: " + e.Message);
+            }
         }
-        public void disconnect()
+        public void Disconnect()
         {
             stop = true;
             tcpClient.Close();
+            //tcpClient.Dispose();
         }
-        public void start()
+        public void Start()
         {
+            if (!tcpClient.Connected)
+            {
+                Console.WriteLine("Error: Server is disconnected");
+                Disconnect();
+                return;
+            }
+
             new Thread(delegate ()
             {
                 stop = false;
@@ -118,6 +134,7 @@ namespace FlightSimulatorApp
                         Console.WriteLine("SocketException: {0}", e);
                     }
                 }
+                Console.WriteLine("Client thread has been Stopped!");
             }).Start();
         }
 
@@ -129,7 +146,7 @@ namespace FlightSimulatorApp
             Byte[] data = System.Text.Encoding.ASCII.GetBytes("get " + param + "\n");
 
             // Get a client stream for reading and writing.
-            NetworkStream stream = tcpClient.GetStream();
+            stream = tcpClient.GetStream();
 
             // Send the message to the connected TcpServer. 
             stream.Write(data, 0, data.Length);
@@ -163,7 +180,7 @@ namespace FlightSimulatorApp
             Byte[] data = System.Text.Encoding.ASCII.GetBytes("set " + param + " " + paramValue + "\n");
 
             // Get a client stream for reading and writing.
-            NetworkStream stream = tcpClient.GetStream();
+            stream = tcpClient.GetStream();
 
             // Send the message to the connected TcpServer. 
             stream.Write(data, 0, data.Length);
