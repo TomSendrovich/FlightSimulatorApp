@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace FlightSimulatorApp
 {
@@ -127,6 +128,14 @@ namespace FlightSimulatorApp
         public string VM_ErrorInfo
         {
             get { return model.ErrorInfo; }
+        }
+        public string VM_ConnectionStatus
+        {
+            get { return model.ConnectionStatus; }
+        }
+        public SolidColorBrush VM_ConnectionColor
+        {
+            get { return model.ConnectionColor; }
         }
     }
     #endregion

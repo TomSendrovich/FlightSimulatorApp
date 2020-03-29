@@ -34,7 +34,7 @@ namespace FlightSimulatorApp.View
 
             InitializeComponent();
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
-
+            vm.Disconnect();
         }
 
         private void ConnectButton_Click(object sender, RoutedEventArgs e)
@@ -86,8 +86,6 @@ namespace FlightSimulatorApp.View
         {
             if (isConnected)
             {
-                statusValue.Content = "Connected";
-                statusValue.Foreground = new SolidColorBrush(Colors.Green);
                 latitudeValue.Visibility = Visibility.Visible;
                 latitudeTitle.Visibility = Visibility.Visible;
                 longitudeValue.Visibility = Visibility.Visible;
@@ -96,8 +94,6 @@ namespace FlightSimulatorApp.View
             }
             else
             {
-                statusValue.Content = "Disconnected";
-                statusValue.Foreground = new SolidColorBrush(Colors.Red);
                 latitudeValue.Visibility = Visibility.Hidden;
                 latitudeTitle.Visibility = Visibility.Hidden;
                 longitudeValue.Visibility = Visibility.Hidden;

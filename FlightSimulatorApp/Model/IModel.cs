@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
+using System.Windows.Media;
 
 namespace FlightSimulatorApp
 {
@@ -35,5 +36,7 @@ namespace FlightSimulatorApp
         double Angle { get; set; }
         string Location { get; set; }
         string ErrorInfo { get; set; }
+        string ConnectionStatus { get; set; }
+        SolidColorBrush ConnectionColor { get; set; }
     }
 }
