@@ -16,6 +16,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Threading;
+using System.Drawing;
+using Image = System.Drawing.Image;
 
 namespace FlightSimulatorApp.View
 {
@@ -84,8 +86,6 @@ namespace FlightSimulatorApp.View
         {
             if (isConnected)
             {
-                //statusValue.Content = "Connected";
-                //statusValue.Foreground = new SolidColorBrush(Colors.Green);
                 latitudeValue.Visibility = Visibility.Visible;
                 latitudeTitle.Visibility = Visibility.Visible;
                 longitudeValue.Visibility = Visibility.Visible;
@@ -94,8 +94,6 @@ namespace FlightSimulatorApp.View
             }
             else
             {
-                //statusValue.Content = "Disconnected";
-                //statusValue.Foreground = new SolidColorBrush(Colors.Red);
                 latitudeValue.Visibility = Visibility.Hidden;
                 latitudeTitle.Visibility = Visibility.Hidden;
                 longitudeValue.Visibility = Visibility.Hidden;
@@ -104,4 +102,5 @@ namespace FlightSimulatorApp.View
             }
         }
     }
+
 }

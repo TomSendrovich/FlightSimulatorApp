@@ -22,7 +22,7 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        
+
         <!--Connection Info -->
         <StackPanel Orientation="Horizontal">
             <Button x:Name="connectButton" Content="Connect" VerticalAlignment="Center" FontSize="20" Padding="10" Margin="20" Click="ConnectButton_Click"/>
@@ -30,7 +30,7 @@
             <Label Margin="20,0,20,0" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" Content="Status:"/>
             <Label x:Name="statusValue" VerticalAlignment="Center" Foreground="{Binding VM_ConnectionColor}" FontSize="20" Content="{Binding VM_ConnectionStatus}"/>
         </StackPanel>
-        
+
         <!--Error Info -->
         <StackPanel Orientation="Horizontal" Grid.Row="1">
             <Label x:Name="ErrorMessageValue" Margin="20" FontSize="18" Width="500" Foreground="Red" Visibility="Visible">
@@ -60,7 +60,25 @@
                     m:MapLayer.PositionOrigin="BottomCenter" Height="30" Width="30"
                     Visibility="Hidden">
 
-                    <Image x:Name="Pin" Source="map-marker.png" />
+                    <Image x:Name="Pin" Source="airplane.png" Height="15">
+                        <Image.RenderTransform>
+                            <RotateTransform x:Name="AnimatedRotateTransform" Angle="{Binding VM_Angle}" />
+                        </Image.RenderTransform>
+                        <Image.Triggers>
+                            <EventTrigger RoutedEvent="MouseDown">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="AnimatedRotateTransform" 
+                            Storyboard.TargetProperty="Angle" 
+                            By="10"        
+                            To="360" 
+                            Duration="0:0:0.5" 
+                            FillBehavior="Stop" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Image.Triggers>
+                    </Image>
                 </Canvas>
 
             </m:Map>
