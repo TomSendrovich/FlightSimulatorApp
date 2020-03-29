@@ -34,6 +34,7 @@ namespace FlightSimulatorApp
         volatile Boolean stop;
 
         private double heading, verticalSpeed, groundSpeed, airSpeed, altitude, roll, pitch, altimeter, throttle, aileron, elevator, normalElevator, rudder, normalRudder, latitude, longitude;
+        private double latitude1, longtitude1, angle;
         private string location, errorInfo;
 
         //INotifyPropertyChanged implementation
@@ -172,8 +173,12 @@ namespace FlightSimulatorApp
                             tmpLongitude = value;
                             value_d = Double.Parse(value);
                             Longitude = Math.Round(value_d, 4, MidpointRounding.ToEven);
-
                             Location = tmpLatitude + "," + tmpLongitude;
+
+                            angle = angleFromCoordinate(Latitude, Longitude, latitude1, longtitude1);
+                            Angle = angle;
+                            latitude1 = Latitude;
+                            longtitude1 = Longitude;
                         }
 
 
@@ -193,6 +198,24 @@ namespace FlightSimulatorApp
                 System.Diagnostics.Debug.WriteLine("Client thread has been Stopped!");
             }).Start();
         }
+        private double angleFromCoordinate(double lat1, double long1, double lat2, double long2)
+        {
+
+            double dLon = (long2 - long1);
+
+            double y = Math.Sin(dLon) * Math.Cos(lat2);
+            double x = Math.Cos(lat1) * Math.Sin(lat2) - Math.Sin(lat1)
+                    * Math.Cos(lat2) * Math.Cos(dLon);
+
+            double brng = Math.Atan2(y, x);
+         //   brng = Math.toDegrees(brng);
+            brng = (brng + 360) % 360;
+            brng = 360 - brng; // count degrees counter-clockwise - remove to make clockwise
+
+            return brng;
+        }
+
+
         public string SendCommand(string paramPath, bool type)
         {
             return SendCommand(paramPath, false, 0);
@@ -426,6 +449,11 @@ namespace FlightSimulatorApp
         {
             get { return location; }
             set { location = value; NotifyPropertyChanged("Location"); }
+        }
+        public double Angle
+        {
+            get { return angle; }
+            set { angle = value; NotifyPropertyChanged("Angle"); }
         }
         public string ErrorInfo
         {

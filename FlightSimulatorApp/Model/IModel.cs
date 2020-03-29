@@ -32,6 +32,7 @@ namespace FlightSimulatorApp
         double NormalRudder { get; set; }
         double Latitude { get; set; }
         double Longitude { get; set; }
+        double Angle { get; set; }
         string Location { get; set; }
         string ErrorInfo { get; set; }
     }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -47,6 +48,10 @@ namespace FlightSimulatorApp
         }
 
         #region Public Properties
+        public Image Airplane
+        {
+            get { return this.airplane; }
+        }
         public double VM_Heading
         {
             get { return model.Heading; }
@@ -114,6 +119,10 @@ namespace FlightSimulatorApp
         public double VM_Longitude
         {
             get { return model.Longitude; }
+        }
+        public double VM_Angle
+        {
+            get { return model.Angle; }
         }
         public string VM_Location
         {

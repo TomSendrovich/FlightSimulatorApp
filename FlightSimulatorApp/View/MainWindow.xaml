@@ -60,7 +60,7 @@
                     m:MapLayer.PositionOrigin="BottomCenter" Height="30" Width="30"
                     Visibility="Hidden">
 
-                    <Image x:Name="Pin" Source="map-marker.png" />
+                    <Image x:Name="Pin" Source="{Binding airplane}" />
                 </Canvas>
 
             </m:Map>
