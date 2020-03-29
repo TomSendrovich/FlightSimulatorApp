@@ -30,16 +30,16 @@ namespace FlightSimulatorApp
         TcpClient tcpClient;
         NetworkStream stream;
         Stopwatch timer = Stopwatch.StartNew();
-        private static Mutex mut = new Mutex();
+        //private static Mutex mut = new Mutex();
         volatile Boolean stop;
 
         private double heading, verticalSpeed, groundSpeed, airSpeed, altitude, roll, pitch, altimeter, throttle, aileron, elevator, normalElevator, rudder, normalRudder, latitude, longitude;
         private string location, errorInfo;
 
-        //INotifyPropertyChanged implementation
+        ///INotifyPropertyChanged implementation
         public event PropertyChangedEventHandler PropertyChanged;
 
-        //Constructor
+        ///Constructor
         public Model() { stop = true; }
 
         public void Connect(string ip, int port)
@@ -206,33 +206,40 @@ namespace FlightSimulatorApp
         /// <returns>the value that returns from server</returns>
         public string SendCommand(string paramPath, bool type, double paramValue)
         {
-            //mut.WaitOne();
             string command;
 
             if (!type) { command = "get " + paramPath + "\n"; }
             else { command = "set " + paramPath + " " + paramValue + "\n"; }
 
-            Byte[] data = System.Text.Encoding.ASCII.GetBytes(command); /// Translate the passed message into ASCII and store it as a Byte array.
+            try
+            {
+                Byte[] data = System.Text.Encoding.ASCII.GetBytes(command); /// Translate the passed message into ASCII and store it as a Byte array.
 
-            stream = tcpClient.GetStream(); /// Get a client stream for reading and writing.
+                stream = tcpClient.GetStream(); /// Get a client stream for reading and writing.
 
-            stream.Write(data, 0, data.Length); /// Send the message to the connected TcpServer. 
+                stream.Write(data, 0, data.Length); /// Send the message to the connected TcpServer. 
 
-            //Console.WriteLine("Sent: {0}", command);
+                //Console.WriteLine("Sent: {0}", command);
 
-            data = new Byte[256]; ///  Receive the TcpServer.response. Buffer to store the response bytes.
+                data = new Byte[256]; ///  Receive the TcpServer.response. Buffer to store the response bytes.
 
-            String responseData = String.Empty; /// String to store the response ASCII representation.
+                String responseData = String.Empty; /// String to store the response ASCII representation.
 
-            /// Read the first batch of the TcpServer response bytes.
-            Int32 bytes = stream.Read(data, 0, data.Length);
-            responseData = System.Text.Encoding.ASCII.GetString(data, 0, bytes);
+                                                    /// Read the first batch of the TcpServer response bytes.
+                Int32 bytes = stream.Read(data, 0, data.Length);
+                responseData = System.Text.Encoding.ASCII.GetString(data, 0, bytes);
 
-            //Console.WriteLine("Received: {0}", responseData);
+                //Console.WriteLine("Received: {0}", responseData);
 
-            //mut.ReleaseMutex();
-
-            return responseData;
+                return responseData;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                ErrorInfo = e.Message;
+                Disconnect();
+                return "ERR";
+            }
         }
 
         #region Properties
