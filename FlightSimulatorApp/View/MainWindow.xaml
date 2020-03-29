@@ -28,7 +28,7 @@
             <Button x:Name="connectButton" Content="Connect" VerticalAlignment="Center" FontSize="20" Padding="10" Margin="20" Click="ConnectButton_Click"/>
             <Button x:Name="disconnectButton" Content="Disconnect" VerticalAlignment="Center" FontSize="20" Padding="10" Margin="20" Click="DisconnectButton_Click"/>
             <Label Margin="20,0,20,0" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" Content="Status:"/>
-            <Label x:Name="statusValue" VerticalAlignment="Center" Foreground="Red" FontSize="20" Content="Disconnected"/>
+            <Label x:Name="statusValue" VerticalAlignment="Center" Foreground="{Binding VM_ConnectionColor}" FontSize="20" Content="{Binding VM_ConnectionStatus}"/>
         </StackPanel>
         
         <!--Error Info -->

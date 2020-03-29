@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Net.Sockets;
 using System.Threading;
 using System.Diagnostics;
+using System.Windows.Media;
 
 namespace FlightSimulatorApp
 {
@@ -34,7 +35,8 @@ namespace FlightSimulatorApp
         volatile Boolean stop;
 
         private double heading, verticalSpeed, groundSpeed, airSpeed, altitude, roll, pitch, altimeter, throttle, aileron, elevator, normalElevator, rudder, normalRudder, latitude, longitude;
-        private string location, errorInfo;
+        private string location, errorInfo, connectionStatus;
+        SolidColorBrush connectionColor;
 
         ///INotifyPropertyChanged implementation
         public event PropertyChangedEventHandler PropertyChanged;
@@ -48,6 +50,10 @@ namespace FlightSimulatorApp
             {
                 tcpClient = new TcpClient();
                 tcpClient.Connect(ip, port);
+
+                ConnectionStatus = "Connected";
+                ConnectionColor = new SolidColorBrush(Colors.Green);
+                connectionColor.Freeze();
             }
             catch (SocketException e)
             {
@@ -67,6 +73,9 @@ namespace FlightSimulatorApp
             {
                 tcpClient.Close();
             }
+            ConnectionStatus = "Disconnected";
+            ConnectionColor = new SolidColorBrush(Colors.Red);
+            connectionColor.Freeze();
         }
         public bool IsConnected() { return tcpClient.Connected; }
         public void Start()
@@ -88,77 +97,75 @@ namespace FlightSimulatorApp
                 {
                     try
                     {
+                        //Heading
                         value = SendCommand(HEADING, false);
-                        if (value.Equals("ERR")) { ErrorInfo = "ERR"; }
-                        else
+                        if (!value.Equals("ERR"))
                         {
                             value_d = Double.Parse(value);
                             Heading = Math.Round(value_d, 2, MidpointRounding.ToEven);
                         }
 
+                        //VerticalSpeed
                         value = SendCommand(VERTICAL_SPEED, false);
-                        if (value.Equals("ERR")) { ErrorInfo = "ERR"; }
-                        else
+                        if (!value.Equals("ERR"))
                         {
                             value_d = Double.Parse(value);
                             VerticalSpeed = Math.Round(value_d, 2, MidpointRounding.ToEven);
                         }
 
+                        //GroundSpeed
                         value = SendCommand(GROUND_SPEED, false);
-                        if (value.Equals("ERR")) { ErrorInfo = "ERR"; }
-                        else
+                        if (!value.Equals("ERR"))
                         {
                             value_d = Double.Parse(value);
                             GroundSpeed = Math.Round(value_d, 2, MidpointRounding.ToEven);
                         }
 
+                        //AirSpeed
                         value = SendCommand(AIR_SPEED, false);
-                        if (value.Equals("ERR")) { ErrorInfo = "ERR"; }
-                        else
+                        if (!value.Equals("ERR"))
                         {
                             value_d = Double.Parse(value);
                             AirSpeed = Math.Round(value_d, 2, MidpointRounding.ToEven);
                         }
 
+                        //Altitude
                         value = SendCommand(ALTITUDE, false);
-                        if (value.Equals("ERR")) { ErrorInfo = "ERR"; }
-                        else
+                        if (!value.Equals("ERR"))
                         {
                             value_d = Double.Parse(value);
                             Altitude = Math.Round(value_d, 2, MidpointRounding.ToEven);
                         }
 
+                        //Roll
                         value = SendCommand(ROLL, false);
-                        if (value.Equals("ERR")) { ErrorInfo = "ERR"; }
-                        else
+                        if (!value.Equals("ERR"))
                         {
                             value_d = Double.Parse(value);
                             Roll = Math.Round(value_d, 2, MidpointRounding.ToEven);
                         }
 
+                        //Pitch
                         value = SendCommand(PITCH, false);
-                        if (value.Equals("ERR")) { ErrorInfo = "ERR"; }
-                        else
+                        if (!value.Equals("ERR"))
                         {
                             value_d = Double.Parse(value);
                             Pitch = Math.Round(value_d, 2, MidpointRounding.ToEven);
                         }
 
+                        //Altimeter
                         value = SendCommand(ALTIMETER, false);
-                        if (value.Equals("ERR")) { ErrorInfo = "ERR"; }
-                        else
+                        if (!value.Equals("ERR"))
                         {
                             value_d = Double.Parse(value);
                             Altimeter = Math.Round(value_d, 2, MidpointRounding.ToEven);
                         }
 
-
                         ///get location info
                         tmpLatitude = "0"; tmpLongitude = "0";
 
                         value = SendCommand(LATITUDE, false);
-                        if (value.Equals("ERR")) { ErrorInfo = "ERR"; }
-                        else
+                        if (!value.Equals("ERR"))
                         {
                             tmpLatitude = value;
                             value_d = Double.Parse(value);
@@ -166,8 +173,7 @@ namespace FlightSimulatorApp
                         }
 
                         value = SendCommand(LONGITUDE, false);
-                        if (value.Equals("ERR")) { ErrorInfo = "ERR"; }
-                        else
+                        if (!value.Equals("ERR"))
                         {
                             tmpLongitude = value;
                             value_d = Double.Parse(value);
@@ -175,7 +181,6 @@ namespace FlightSimulatorApp
 
                             Location = tmpLatitude + "," + tmpLongitude;
                         }
-
 
                         Thread.Sleep(250); //read the data in 4Hz
                     }
@@ -225,7 +230,7 @@ namespace FlightSimulatorApp
 
                 String responseData = String.Empty; /// String to store the response ASCII representation.
 
-                                                    /// Read the first batch of the TcpServer response bytes.
+                /// Read the first batch of the TcpServer response bytes.
                 Int32 bytes = stream.Read(data, 0, data.Length);
                 responseData = System.Text.Encoding.ASCII.GetString(data, 0, bytes);
 
@@ -455,6 +460,18 @@ namespace FlightSimulatorApp
 
                 }).Start();
             }
+        }
+        public string ConnectionStatus
+        {
+            get { return connectionStatus; }
+            set { connectionStatus = value; NotifyPropertyChanged("ConnectionStatus"); }
+
+        }
+        public SolidColorBrush ConnectionColor
+        {
+            get { return connectionColor; }
+            set { connectionColor = value; NotifyPropertyChanged("ConnectionColor"); }
+
         }
 
         private double Normalize(double value)
