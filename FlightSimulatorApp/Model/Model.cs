@@ -34,6 +34,7 @@ namespace FlightSimulatorApp
         volatile Boolean stop;
 
         private double heading, verticalSpeed, groundSpeed, airSpeed, altitude, roll, pitch, altimeter, throttle, aileron, elevator, normalElevator, rudder, normalRudder, latitude, longitude;
+        private double originalLat, originalLong, prevLat, prevLong, angle;
         private string location, errorInfo;
 
         //INotifyPropertyChanged implementation
@@ -152,17 +153,18 @@ namespace FlightSimulatorApp
                             Altimeter = Math.Round(value_d, 2, MidpointRounding.ToEven);
                         }
 
-
                         ///get location info
                         tmpLatitude = "0"; tmpLongitude = "0";
+                        prevLat = originalLat; prevLong = originalLong;
 
+                        //Latitude
                         value = SendCommand(LATITUDE, false);
                         if (value.Equals("ERR")) { ErrorInfo = "ERR"; }
                         else
                         {
                             tmpLatitude = value;
-                            value_d = Double.Parse(value);
-                            Latitude = Math.Round(value_d, 4, MidpointRounding.ToEven);
+                            originalLat = Double.Parse(value);
+                            Latitude = Math.Round(originalLat, 4, MidpointRounding.ToEven);
                         }
 
                         value = SendCommand(LONGITUDE, false);
@@ -170,12 +172,13 @@ namespace FlightSimulatorApp
                         else
                         {
                             tmpLongitude = value;
-                            value_d = Double.Parse(value);
-                            Longitude = Math.Round(value_d, 4, MidpointRounding.ToEven);
-
+                            originalLong = Double.Parse(value);
+                            Longitude = Math.Round(originalLong, 4, MidpointRounding.ToEven);
                             Location = tmpLatitude + "," + tmpLongitude;
                         }
 
+                        //Angle
+                        Angle = AngleFromCoordinate(prevLat, prevLong, originalLat, originalLong);
 
                         Thread.Sleep(250); //read the data in 4Hz
                     }
@@ -427,6 +430,14 @@ namespace FlightSimulatorApp
             get { return location; }
             set { location = value; NotifyPropertyChanged("Location"); }
         }
+        public double Angle
+        {
+            get { return angle; }
+            set
+            {
+                angle = value; NotifyPropertyChanged("Angle"); Console.WriteLine("Angle: " + value);
+            }
+        }
         public string ErrorInfo
         {
             get { return errorInfo; }
@@ -458,6 +469,20 @@ namespace FlightSimulatorApp
             double retVal = 2 * ((value - min) / (max - min)) - 1;
 
             return retVal;
+        }
+
+        private double AngleFromCoordinate(double lat1, double long1, double lat2, double long2)
+        {
+            double dLon = (long2 - long1);
+
+            double x = Math.Cos(lat1) * Math.Sin(lat2) - Math.Sin(lat1)
+                    * Math.Cos(lat2) * Math.Cos(dLon);
+            double y = Math.Sin(dLon) * Math.Cos(lat2);
+
+            double radians = (Math.Atan2(y, x) + Math.PI * 2) % (Math.PI * 2);
+            double degrees = radians * 180 / Math.PI;
+
+            return degrees;
         }
 
         public void NotifyPropertyChanged(string PropName)

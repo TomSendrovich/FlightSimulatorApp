@@ -16,6 +16,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Threading;
+using System.Drawing;
+using Image = System.Drawing.Image;
 
 namespace FlightSimulatorApp.View
 {
@@ -32,6 +34,7 @@ namespace FlightSimulatorApp.View
 
             InitializeComponent();
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
+
         }
 
         private void ConnectButton_Click(object sender, RoutedEventArgs e)
@@ -103,4 +106,5 @@ namespace FlightSimulatorApp.View
             }
         }
     }
+
 }
