@@ -208,7 +208,7 @@ namespace FlightSimulatorApp
                     * Math.Cos(lat2) * Math.Cos(dLon);
 
             double brng = Math.Atan2(y, x);
-         //   brng = Math.toDegrees(brng);
+            //   brng = Math.toDegrees(brng);
             brng = (brng + 360) % 360;
             brng = 360 - brng; // count degrees counter-clockwise - remove to make clockwise
 
@@ -453,7 +453,10 @@ namespace FlightSimulatorApp
         public double Angle
         {
             get { return angle; }
-            set { angle = value; NotifyPropertyChanged("Angle"); }
+            set
+            {
+                angle = value; NotifyPropertyChanged("Angle"); Console.WriteLine("Angle: " + value);
+            }
         }
         public string ErrorInfo
         {

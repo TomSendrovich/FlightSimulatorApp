@@ -48,10 +48,6 @@ namespace FlightSimulatorApp
         }
 
         #region Public Properties
-        public Image Airplane
-        {
-            get { return this.airplane; }
-        }
         public double VM_Heading
         {
             get { return model.Heading; }

@@ -27,8 +27,6 @@ namespace FlightSimulatorApp.View
     public partial class MainWindow : Window
     {
         ViewModel vm;
-        Image airplane;
-        BitmapImage source;
         public MainWindow()
         {
             vm = new ViewModel(new Model());
@@ -37,7 +35,6 @@ namespace FlightSimulatorApp.View
             InitializeComponent();
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
 
-            airplane = Image.FromFile("C:\\Users\\Tsand\\Source\\Repos\\FlightSimulatorApp\\FlightSimulatorApp\\View\\airplane.jpg");
         }
 
         private void ConnectButton_Click(object sender, RoutedEventArgs e)
