@@ -27,7 +27,9 @@ namespace FlightSimulatorApp
         double Throttle { get; set; }
         double Aileron { get; set; }
         double Elevator { get; set; }
+        double NormalElevator { get; set; }
         double Rudder { get; set; }
+        double NormalRudder { get; set; }
         double Latitude { get; set; }
         double Longitude { get; set; }
         string Location { get; set; }

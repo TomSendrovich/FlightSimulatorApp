@@ -94,10 +94,18 @@ namespace FlightSimulatorApp
             get { return model.Elevator; }
             set { model.Elevator = value; }
         }
+        public double VM_NormalElevator
+        {
+            get { return model.NormalElevator; }
+        }
         public double VM_Rudder
         {
             get { return model.Rudder; }
             set { model.Rudder = value; }
+        }
+        public double VM_NormalRudder
+        {
+            get { return model.NormalRudder; }
         }
         public double VM_Latitude
         {

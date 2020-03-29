@@ -33,7 +33,7 @@ namespace FlightSimulatorApp
         private static Mutex mut = new Mutex();
         volatile Boolean stop;
 
-        private double heading, verticalSpeed, groundSpeed, airSpeed, altitude, roll, pitch, altimeter, throttle, aileron, elevator, rudder, latitude, longitude;
+        private double heading, verticalSpeed, groundSpeed, airSpeed, altitude, roll, pitch, altimeter, throttle, aileron, elevator, normalElevator, rudder, normalRudder, latitude, longitude;
         private string location, errorInfo;
 
         //INotifyPropertyChanged implementation
@@ -345,9 +345,15 @@ namespace FlightSimulatorApp
                 else { elevator = value; }
 
                 if (!stop) { SendCommand(ELEVATOR, true, Normalize(value)); }
+                NormalElevator = Normalize(value);
 
                 NotifyPropertyChanged("Elevator");
             }
+        }
+        public double NormalElevator
+        {
+            get { return normalElevator; }
+            set { normalElevator = value; NotifyPropertyChanged("NormalElevator"); }
         }
         public double Rudder
         {
@@ -367,10 +373,16 @@ namespace FlightSimulatorApp
                 else { rudder = value; }
 
                 if (!stop) { SendCommand(RUDDER, true, Normalize(value)); }
+                NormalRudder = Normalize(value);
 
                 NotifyPropertyChanged("Rudder");
 
             }
+        }
+        public double NormalRudder
+        {
+            get { return normalRudder; }
+            set { normalRudder = value; NotifyPropertyChanged("NormalRudder"); }
         }
         public double Latitude
         {

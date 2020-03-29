@@ -142,13 +142,13 @@
         <!-- Rudder Title -->
         <Grid>
             <TextBlock x:Name="RudderText" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,10,0,0" FontSize="30">&lt;-- Rudder --&gt;</TextBlock>
-            <TextBlock x:Name="RudderValue" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="300,10,0,0" FontSize="30" FontWeight="Bold" Text="{Binding Path=VM_Rudder, StringFormat=N1}"/>
+            <TextBlock x:Name="RudderValue" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="300,10,0,0" FontSize="30" FontWeight="Bold" Text="{Binding Path=VM_NormalRudder, StringFormat=N2}"/>
         </Grid>
 
         <!-- Elevator Title -->
         <Grid>
             <TextBlock x:Name="ElevatorText" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,10,0,0" FontSize="30">&lt;-- Elevator --&gt;</TextBlock>
-            <TextBlock x:Name="ElevatorValue" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="300,10,0,0" FontSize="30" FontWeight="Bold" Text="{Binding Path=VM_Elevator, StringFormat=N1}"/>
+            <TextBlock x:Name="ElevatorValue" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="300,10,0,0" FontSize="30" FontWeight="Bold" Text="{Binding Path=VM_NormalElevator, StringFormat=N2}"/>
             <Grid.LayoutTransform>
                 <RotateTransform Angle="90"/>
             </Grid.LayoutTransform>
@@ -160,17 +160,17 @@
                 <RotateTransform Angle="90"/>
             </Grid.LayoutTransform>
             <Slider x:Name="AileronSlider" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Margin="100,0,100,50" TickPlacement="BottomRight"
-                    Value="{Binding Path=VM_Aileron , Mode=OneWayToSource}" TickFrequency="0.1" IsSnapToTickEnabled="True" Minimum="-1" Maximum="1"/>
+                    Value="{Binding Path=VM_Aileron , Mode=OneWayToSource}" TickFrequency="0.05" IsSnapToTickEnabled="True" Minimum="-1" Maximum="1"/>
             <TextBlock x:Name="AileronText" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,10" FontSize="30" Text="Aileron"/>
-            <TextBlock x:Name="AileronValue" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="200,0,0,10" FontSize="30" FontWeight="Bold" Text="{Binding Path=VM_Aileron}"/>
+            <TextBlock x:Name="AileronValue" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="200,0,0,10" FontSize="30" FontWeight="Bold" Text="{Binding Path=VM_Aileron, StringFormat=N2}"/>
         </Grid>
 
         <!-- Throttle Slider -->
         <Grid>
             <Slider x:Name="ThrottleSlider" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Margin="150,0,150,50" TickPlacement="BottomRight"
-                    Value="{Binding Path=VM_Throttle, Mode=OneWayToSource}" TickFrequency="0.1" IsSnapToTickEnabled="True" Minimum="0" Maximum="1" />
+                    Value="{Binding Path=VM_Throttle, Mode=OneWayToSource}" TickFrequency="0.05" IsSnapToTickEnabled="True" Minimum="0" Maximum="1" />
             <TextBlock x:Name="ThrottleText" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,10" FontSize="30" Text="Throttle"/>
-            <TextBlock x:Name="ThrottleValue" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="200,0,0,10" FontSize="30" FontWeight="Bold" Text="{Binding Path=VM_Throttle}"/>
+            <TextBlock x:Name="ThrottleValue" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="200,0,0,10" FontSize="30" FontWeight="Bold" Text="{Binding Path=VM_Throttle, StringFormat=N2}"/>
         </Grid>
 
     </Grid>
