@@ -174,7 +174,7 @@
                     Value="{Binding Path=VM_Throttle, Mode=OneWayToSource}" TickFrequency="0.05" IsSnapToTickEnabled="True" Minimum="0" Maximum="1" />
             <TextBlock x:Name="ThrottleText" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,10" FontSize="30" Text="Throttle"/>
             <TextBlock x:Name="ThrottleValue" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="200,0,0,10" FontSize="30" FontWeight="Bold"
-                       Text="{Binding Path=VM_Throttl, Mode=OneWay, StringFormat=N2}"/>
+                       Text="{Binding Path=VM_Throttle, Mode=OneWay, StringFormat=N2}"/>
         </Grid>
 
     </Grid>
