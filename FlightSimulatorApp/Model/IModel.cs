@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Windows.Media;
+using System.Windows;
 
 namespace FlightSimulatorApp
 {
@@ -38,5 +34,6 @@ namespace FlightSimulatorApp
         string ErrorInfo { get; set; }
         string ConnectionStatus { get; set; }
         SolidColorBrush ConnectionColor { get; set; }
+        Visibility Vis { get; set; }
     }
 }

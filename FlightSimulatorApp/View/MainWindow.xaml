@@ -40,10 +40,10 @@
 
         <!--Location Info -->
         <StackPanel Orientation="Horizontal" Grid.Row="2">
-            <Label x:Name="latitudeTitle" Margin="20" FontSize="20" FontWeight="Bold" Visibility="Hidden" Content="Latitude:"/>
-            <Label x:Name="latitudeValue" Margin="20" FontSize="20" Visibility="Hidden" Content="{Binding VM_Latitude, Mode=OneWay, StringFormat=N0}"/>
-            <Label x:Name="longitudeTitle" Margin="20" FontSize="20" FontWeight="Bold" Visibility="Hidden" Content="Longitude:"/>
-            <Label x:Name="longitudeValue" Margin="20" FontSize="20" Visibility="Hidden" Content="{Binding VM_Longitude, Mode=OneWay, StringFormat=N0}"/>
+            <Label x:Name="latitudeTitle" Margin="20" FontSize="20" FontWeight="Bold" Visibility="{Binding VM_Vis, Mode=OneWay}" Content="Latitude:"/>
+            <Label x:Name="latitudeValue" Margin="20" FontSize="20" Visibility="{Binding VM_Vis, Mode=OneWay}" Content="{Binding VM_Latitude, Mode=OneWay}"/>
+            <Label x:Name="longitudeTitle" Margin="20" FontSize="20" FontWeight="Bold" Visibility="{Binding VM_Vis, Mode=OneWay}" Content="Longitude:"/>
+            <Label x:Name="longitudeValue" Margin="20" FontSize="20" Visibility="{Binding VM_Vis, Mode=OneWay}" Content="{Binding VM_Longitude, Mode=OneWay}"/>
         </StackPanel>
 
         <!--Map -->
@@ -58,7 +58,7 @@
                     x:Name="mapCanvas" 
                     m:MapLayer.Position="{Binding VM_Location, Mode=OneWay}"
                     m:MapLayer.PositionOrigin="BottomCenter" Height="30" Width="30"
-                    Visibility="Hidden">
+                    Visibility="{Binding VM_Vis, Mode=OneWay}">
 
                     <Image x:Name="Pin" Source="airplane.png" Height="15">
                         <Image.RenderTransform>

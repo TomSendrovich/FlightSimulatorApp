@@ -25,17 +25,9 @@ namespace FlightSimulatorApp.View
             window.ShowDialog();
         }
 
-        private void DisconnectButton_Click(object sender, RoutedEventArgs e)
-        {
-            vm.Disconnect();
-            UpdateUI(false);
-        }
+        private void DisconnectButton_Click(object sender, RoutedEventArgs e) { vm.Disconnect(); }
 
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            vm.Disconnect();
-            UpdateUI(false);
-        }
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e) { vm.Disconnect(); }
 
         internal void Connect(string ip, int port)
         {
@@ -46,11 +38,6 @@ namespace FlightSimulatorApp.View
                 {
                     System.Diagnostics.Debug.WriteLine("Client is connected successfully!");
                     vm.Start();
-                    UpdateUI(true);
-                }
-                else
-                {
-                    UpdateUI(false);
                 }
             }
             catch (Exception e)
@@ -58,26 +45,5 @@ namespace FlightSimulatorApp.View
                 Console.WriteLine(e.Message);
             }
         }
-
-        public void UpdateUI(bool isConnected)
-        {
-            if (isConnected)
-            {
-                latitudeValue.Visibility = Visibility.Visible;
-                latitudeTitle.Visibility = Visibility.Visible;
-                longitudeValue.Visibility = Visibility.Visible;
-                longitudeTitle.Visibility = Visibility.Visible;
-                mapCanvas.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                latitudeValue.Visibility = Visibility.Hidden;
-                latitudeTitle.Visibility = Visibility.Hidden;
-                longitudeValue.Visibility = Visibility.Hidden;
-                longitudeTitle.Visibility = Visibility.Hidden;
-                mapCanvas.Visibility = Visibility.Hidden;
-            }
-        }
     }
-
 }

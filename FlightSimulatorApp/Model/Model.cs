@@ -4,6 +4,7 @@ using System.Net.Sockets;
 using System.Threading;
 using System.Diagnostics;
 using System.Windows.Media;
+using System.Windows;
 
 namespace FlightSimulatorApp
 {
@@ -28,6 +29,7 @@ namespace FlightSimulatorApp
         NetworkStream stream;
         Stopwatch timer = Stopwatch.StartNew();
         volatile Boolean stop, calcAngle = true;
+        Visibility visibility;
 
         private string heading, verticalSpeed, groundSpeed, airSpeed, altitude, roll, pitch, altimeter, throttle, aileron, elevator, normalElevator, rudder, normalRudder, latitude, longitude, angle;
         private double originalLat, originalLong, prevLat, prevLong;
@@ -50,6 +52,7 @@ namespace FlightSimulatorApp
                 ConnectionStatus = "Connected";
                 ConnectionColor = new SolidColorBrush(Colors.Green);
                 connectionColor.Freeze();
+                Vis = Visibility.Visible;
             }
             catch (SocketException e)
             {
@@ -72,6 +75,7 @@ namespace FlightSimulatorApp
             ConnectionStatus = "Disconnected";
             ConnectionColor = new SolidColorBrush(Colors.Red);
             connectionColor.Freeze();
+            Vis = Visibility.Hidden;
         }
         public bool IsConnected() { return tcpClient.Connected; }
         public void Start()
@@ -478,6 +482,12 @@ namespace FlightSimulatorApp
         {
             get { return connectionColor; }
             set { connectionColor = value; NotifyPropertyChanged("ConnectionColor"); }
+
+        }
+        public Visibility Vis
+        {
+            get { return visibility; }
+            set { visibility = value; NotifyPropertyChanged("Vis"); }
 
         }
 

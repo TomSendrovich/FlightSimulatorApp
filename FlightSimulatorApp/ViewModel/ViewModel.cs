@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Media;
+using System.Windows;
 
 namespace FlightSimulatorApp
 {
@@ -328,6 +324,10 @@ namespace FlightSimulatorApp
         public SolidColorBrush VM_ConnectionColor
         {
             get { return model.ConnectionColor; }
+        }
+        public Visibility VM_Vis
+        {
+            get { return model.Vis; }
         }
     }
     #endregion
