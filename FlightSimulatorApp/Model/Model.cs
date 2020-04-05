@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Net.Sockets;
 using System.Threading;
 using System.Diagnostics;
@@ -32,7 +28,7 @@ namespace FlightSimulatorApp
         NetworkStream stream;
         Stopwatch timer = Stopwatch.StartNew();
         //private static Mutex mut = new Mutex();
-        volatile Boolean stop;
+        volatile Boolean stop, calcAngle = true;
 
         private double heading, verticalSpeed, groundSpeed, airSpeed, altitude, roll, pitch, altimeter, throttle, aileron, elevator, normalElevator, rudder, normalRudder, latitude, longitude;
         private double originalLat, originalLong, prevLat, prevLong, angle;
@@ -182,11 +178,37 @@ namespace FlightSimulatorApp
                             tmpLongitude = value;
                             originalLong = Double.Parse(value);
                             Longitude = Math.Round(originalLong, 4, MidpointRounding.ToEven);
-                            Location = tmpLatitude + "," + tmpLongitude;
                         }
 
+                        //Location
+                        if (originalLat > 90)
+                        {
+                            originalLat = 90;
+                            tmpLatitude = "90";
+                        }
+                        else if (originalLat < -90)
+                        {
+                            originalLat = -90;
+                            tmpLatitude = "-90";
+                        }
+                        if (originalLong > 180)
+                        {
+                            originalLong = 180;
+                            tmpLongitude = "180";
+                        }
+                        else if (originalLong < -180)
+                        {
+                            originalLong = -180;
+                            tmpLongitude = "-180";
+                        }
+                        Location = tmpLatitude + "," + tmpLongitude;
+
                         //Angle
-                        Angle = AngleFromCoordinate(prevLat, prevLong, originalLat, originalLong);
+                        if (calcAngle)
+                        {
+                            Angle = AngleFromCoordinate(prevLat, prevLong, originalLat, originalLong);
+                        }
+
 
                         Thread.Sleep(250); //read the data in 4Hz
                     }
@@ -411,13 +433,15 @@ namespace FlightSimulatorApp
                 {
                     ErrorInfo = "latitude value is out of bounds";
                     latitude = 90;
+                    calcAngle = false;
                 }
                 else if (value <= -90)
                 {
                     ErrorInfo = "latitude value is out of bounds";
                     latitude = -90;
+                    calcAngle = false;
                 }
-                else { latitude = value; }
+                else { latitude = value; calcAngle = true; }
                 NotifyPropertyChanged("Latitude");
             }
         }
@@ -430,27 +454,30 @@ namespace FlightSimulatorApp
                 {
                     ErrorInfo = "longitude value is out of bounds";
                     longitude = 180;
+                    calcAngle = false;
                 }
                 else if (value < -180)
                 {
                     ErrorInfo = "longitude value is out of bounds";
                     longitude = -180;
+                    calcAngle = false;
                 }
-                else { longitude = value; }
+                else { longitude = value; calcAngle = true; }
                 NotifyPropertyChanged("Longitude");
             }
         }
         public string Location
         {
             get { return location; }
-            set { location = value; NotifyPropertyChanged("Location"); }
+            set { location = value; NotifyPropertyChanged("Location"); Console.WriteLine("Location: " + value); }
         }
         public double Angle
         {
             get { return angle; }
             set
             {
-                angle = value; NotifyPropertyChanged("Angle"); Console.WriteLine("Angle: " + value);
+                angle = value;
+                NotifyPropertyChanged("Angle");
             }
         }
         public string ErrorInfo

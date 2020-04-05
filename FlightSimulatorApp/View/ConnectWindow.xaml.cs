@@ -1,17 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using System.Text.RegularExpressions;
+using System.Configuration;
 
 namespace FlightSimulatorApp.View
 {
@@ -24,6 +14,11 @@ namespace FlightSimulatorApp.View
         {
             InitializeComponent();
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
+
+            int defaultPort = Int32.Parse(ConfigurationManager.AppSettings["port"].ToString());
+            string defaultIP = ConfigurationManager.AppSettings["ip"].ToString();
+            ipValue.Text = defaultIP;
+            portValue.Text = defaultPort.ToString();
         }
 
         private void ConnectButton_Click(object sender, RoutedEventArgs e)
