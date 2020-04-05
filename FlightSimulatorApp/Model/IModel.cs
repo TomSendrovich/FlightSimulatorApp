@@ -17,23 +17,23 @@ namespace FlightSimulatorApp
         bool IsConnected();
 
         //properties
-        double Heading { get; set; }
-        double VerticalSpeed { get; set; }
-        double GroundSpeed { get; set; }
-        double AirSpeed { get; set; }
-        double Altitude { get; set; }
-        double Roll { get; set; }
-        double Pitch { get; set; }
-        double Altimeter { get; set; }
-        double Throttle { get; set; }
-        double Aileron { get; set; }
-        double Elevator { get; set; }
-        double NormalElevator { get; set; }
-        double Rudder { get; set; }
-        double NormalRudder { get; set; }
-        double Latitude { get; set; }
-        double Longitude { get; set; }
-        double Angle { get; set; }
+        string Heading { get; set; }
+        string VerticalSpeed { get; set; }
+        string GroundSpeed { get; set; }
+        string AirSpeed { get; set; }
+        string Altitude { get; set; }
+        string Roll { get; set; }
+        string Pitch { get; set; }
+        string Altimeter { get; set; }
+        string Throttle { get; set; }
+        string Aileron { get; set; }
+        string Elevator { get; set; }
+        string NormalElevator { get; set; }
+        string Rudder { get; set; }
+        string NormalRudder { get; set; }
+        string Latitude { get; set; }
+        string Longitude { get; set; }
+        string Angle { get; set; }
         string Location { get; set; }
         string ErrorInfo { get; set; }
         string ConnectionStatus { get; set; }

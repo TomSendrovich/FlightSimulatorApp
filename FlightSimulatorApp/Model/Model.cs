@@ -27,11 +27,10 @@ namespace FlightSimulatorApp
         TcpClient tcpClient;
         NetworkStream stream;
         Stopwatch timer = Stopwatch.StartNew();
-        //private static Mutex mut = new Mutex();
         volatile Boolean stop, calcAngle = true;
 
-        private double heading, verticalSpeed, groundSpeed, airSpeed, altitude, roll, pitch, altimeter, throttle, aileron, elevator, normalElevator, rudder, normalRudder, latitude, longitude;
-        private double originalLat, originalLong, prevLat, prevLong, angle;
+        private string heading, verticalSpeed, groundSpeed, airSpeed, altitude, roll, pitch, altimeter, throttle, aileron, elevator, normalElevator, rudder, normalRudder, latitude, longitude, angle;
+        private double originalLat, originalLong, prevLat, prevLong;
         private string location, errorInfo, connectionStatus;
         SolidColorBrush connectionColor;
 
@@ -88,96 +87,54 @@ namespace FlightSimulatorApp
             new Thread(delegate ()
             {
                 stop = false;
-                string value, tmpLongitude, tmpLatitude;
-                double value_d;
+                string tmpLongitude, tmpLatitude;
                 while (!stop)
                 {
                     try
                     {
                         //Heading
-                        value = SendCommand(HEADING, false);
-                        if (!value.Equals("ERR"))
-                        {
-                            value_d = Double.Parse(value);
-                            Heading = Math.Round(value_d, 2, MidpointRounding.ToEven);
-                        }
+                        Heading = SendCommand(HEADING, false);
 
                         //VerticalSpeed
-                        value = SendCommand(VERTICAL_SPEED, false);
-                        if (!value.Equals("ERR"))
-                        {
-                            value_d = Double.Parse(value);
-                            VerticalSpeed = Math.Round(value_d, 2, MidpointRounding.ToEven);
-                        }
+                        VerticalSpeed = SendCommand(VERTICAL_SPEED, false);
 
                         //GroundSpeed
-                        value = SendCommand(GROUND_SPEED, false);
-                        if (!value.Equals("ERR"))
-                        {
-                            value_d = Double.Parse(value);
-                            GroundSpeed = Math.Round(value_d, 2, MidpointRounding.ToEven);
-                        }
+                        GroundSpeed = SendCommand(GROUND_SPEED, false);
 
                         //AirSpeed
-                        value = SendCommand(AIR_SPEED, false);
-                        if (!value.Equals("ERR"))
-                        {
-                            value_d = Double.Parse(value);
-                            AirSpeed = Math.Round(value_d, 2, MidpointRounding.ToEven);
-                        }
+                        AirSpeed = SendCommand(AIR_SPEED, false);
 
                         //Altitude
-                        value = SendCommand(ALTITUDE, false);
-                        if (!value.Equals("ERR"))
-                        {
-                            value_d = Double.Parse(value);
-                            Altitude = Math.Round(value_d, 2, MidpointRounding.ToEven);
-                        }
+                        Altitude = SendCommand(ALTITUDE, false);
 
                         //Roll
-                        value = SendCommand(ROLL, false);
-                        if (!value.Equals("ERR"))
-                        {
-                            value_d = Double.Parse(value);
-                            Roll = Math.Round(value_d, 2, MidpointRounding.ToEven);
-                        }
+                        Roll = SendCommand(ROLL, false);
 
                         //Pitch
-                        value = SendCommand(PITCH, false);
-                        if (!value.Equals("ERR"))
-                        {
-                            value_d = Double.Parse(value);
-                            Pitch = Math.Round(value_d, 2, MidpointRounding.ToEven);
-                        }
+                        Pitch = SendCommand(PITCH, false);
 
                         //Altimeter
-                        value = SendCommand(ALTIMETER, false);
-                        if (!value.Equals("ERR"))
-                        {
-                            value_d = Double.Parse(value);
-                            Altimeter = Math.Round(value_d, 2, MidpointRounding.ToEven);
-                        }
+                        Altimeter = SendCommand(ALTIMETER, false);
+
 
                         ///get location info
                         tmpLatitude = "0"; tmpLongitude = "0";
                         prevLat = originalLat; prevLong = originalLong;
 
                         //Latitude
-                        value = SendCommand(LATITUDE, false);
-                        if (!value.Equals("ERR"))
+                        Latitude = SendCommand(LATITUDE, false);
+                        tmpLatitude = Latitude;
+                        if (!Latitude.Contains("ERR"))
                         {
-                            tmpLatitude = value;
-                            originalLat = Double.Parse(value);
-                            Latitude = Math.Round(originalLat, 4, MidpointRounding.ToEven);
+                            originalLat = Double.Parse(Latitude);
                         }
 
                         //Longitude
-                        value = SendCommand(LONGITUDE, false);
-                        if (!value.Equals("ERR"))
+                        Longitude = SendCommand(LONGITUDE, false);
+                        tmpLongitude = Longitude;
+                        if (!Longitude.Contains("ERR"))
                         {
-                            tmpLongitude = value;
-                            originalLong = Double.Parse(value);
-                            Longitude = Math.Round(originalLong, 4, MidpointRounding.ToEven);
+                            originalLong = Double.Parse(Longitude);
                         }
 
                         //Location
@@ -206,7 +163,7 @@ namespace FlightSimulatorApp
                         //Angle
                         if (calcAngle)
                         {
-                            Angle = AngleFromCoordinate(prevLat, prevLong, originalLat, originalLong);
+                            Angle = AngleFromCoordinate(prevLat, prevLong, originalLat, originalLong).ToString();
                         }
 
 
@@ -228,7 +185,7 @@ namespace FlightSimulatorApp
         }
         public string SendCommand(string paramPath, bool type)
         {
-            return SendCommand(paramPath, false, 0);
+            return SendCommand(paramPath, false, "0");
         }
         /// <summary>
         /// send get/set command to server
@@ -237,7 +194,7 @@ namespace FlightSimulatorApp
         /// <param name="type">get (false) or set (true)</param>
         /// <param name="paramValue">value of parameter (necessary only if set command)</param>
         /// <returns>the value that returns from server</returns>
-        public string SendCommand(string paramPath, bool type, double paramValue)
+        public string SendCommand(string paramPath, bool type, string paramValue)
         {
             string command;
 
@@ -277,62 +234,62 @@ namespace FlightSimulatorApp
 
         #region Properties
 
-        public double Heading
+        public string Heading
         {
             get { return heading; }
             set { heading = value; NotifyPropertyChanged("Heading"); }
         }
-        public double VerticalSpeed
+        public string VerticalSpeed
         {
             get { return verticalSpeed; }
             set { verticalSpeed = value; NotifyPropertyChanged("VerticalSpeed"); }
         }
-        public double GroundSpeed
+        public string GroundSpeed
         {
             get { return groundSpeed; }
             set { groundSpeed = value; NotifyPropertyChanged("GroundSpeed"); }
         }
-        public double AirSpeed
+        public string AirSpeed
         {
             get { return airSpeed; }
             set { airSpeed = value; NotifyPropertyChanged("AirSpeed"); }
         }
-        public double Altitude
+        public string Altitude
         {
             get { return altitude; }
             set { altitude = value; NotifyPropertyChanged("Altitude"); }
         }
-        public double Roll
+        public string Roll
         {
             get { return roll; }
             set { roll = value; NotifyPropertyChanged("Roll"); }
         }
-        public double Pitch
+        public string Pitch
         {
             get { return pitch; }
             set { pitch = value; NotifyPropertyChanged("Pitch"); }
         }
-        public double Altimeter
+        public string Altimeter
         {
             get { return altimeter; }
             set { altimeter = value; NotifyPropertyChanged("Altimeter"); }
         }
-        public double Throttle
+        public string Throttle
         {
             get { return throttle; }
             set
             {
                 if (throttle != value)
                 {
-                    if (value > 1)
+                    if (Double.Parse(value) > 1)
                     {
-                        throttle = 1;
+                        throttle = "1";
                         ErrorInfo = "throttle value is out of bounds";
                     }
-                    else if (value < 0)
+                    else if (Double.Parse(value) < 0)
                     {
+                        throttle = "0";
                         ErrorInfo = "throttle value is out of bounds";
-                        throttle = 0;
                     }
                     else { throttle = value; }
 
@@ -342,22 +299,22 @@ namespace FlightSimulatorApp
                 }
             }
         }
-        public double Aileron
+        public string Aileron
         {
             get { return aileron; }
             set
             {
                 if (aileron != value)
                 {
-                    if (value > 1)
+                    if (Double.Parse(value) > 1)
                     {
                         ErrorInfo = "aileron value is out of bounds";
-                        aileron = 1;
+                        aileron = "1";
                     }
-                    else if (value < -1)
+                    else if (Double.Parse(value) < -1)
                     {
                         ErrorInfo = "aileron value is out of bounds";
-                        aileron = -1;
+                        aileron = "-1";
                     }
                     else { aileron = value; }
 
@@ -367,20 +324,20 @@ namespace FlightSimulatorApp
                 }
             }
         }
-        public double Elevator
+        public string Elevator
         {
             get { return elevator; }
             set
             {
-                if (value > 170)
+                if (Double.Parse(value) > 170)
                 {
+                    elevator = "170";
                     ErrorInfo = "elevator value is out of bounds";
-                    elevator = 170;
                 }
-                else if (value < -170)
+                else if (Double.Parse(value) < -170)
                 {
+                    elevator = "-170";
                     ErrorInfo = "elevator value is out of bounds";
-                    elevator = -170;
                 }
                 else { elevator = value; }
 
@@ -390,25 +347,25 @@ namespace FlightSimulatorApp
                 NotifyPropertyChanged("Elevator");
             }
         }
-        public double NormalElevator
+        public string NormalElevator
         {
             get { return normalElevator; }
             set { normalElevator = value; NotifyPropertyChanged("NormalElevator"); }
         }
-        public double Rudder
+        public string Rudder
         {
             get { return rudder; }
             set
             {
-                if (value > 170)
+                if (Double.Parse(value) > 170)
                 {
                     ErrorInfo = "rudder value is out of bounds";
-                    rudder = 170;
+                    rudder = "170";
                 }
-                else if (value < -170)
+                else if (Double.Parse(value) < -170)
                 {
                     ErrorInfo = "rudder value is out of bounds";
-                    rudder = -170;
+                    rudder = "-170";
                 }
                 else { rudder = value; }
 
@@ -419,47 +376,55 @@ namespace FlightSimulatorApp
 
             }
         }
-        public double NormalRudder
+        public string NormalRudder
         {
             get { return normalRudder; }
             set { normalRudder = value; NotifyPropertyChanged("NormalRudder"); }
         }
-        public double Latitude
+        public string Latitude
         {
             get { return latitude; }
             set
             {
-                if (value >= 90)
+                if (value.Contains("ERR"))
+                {
+                    latitude = value; calcAngle = false;
+                }
+                else if (Double.Parse(value) >= 90)
                 {
                     ErrorInfo = "latitude value is out of bounds";
-                    latitude = 90;
+                    latitude = "90";
                     calcAngle = false;
                 }
-                else if (value <= -90)
+                else if (Double.Parse(value) <= -90)
                 {
                     ErrorInfo = "latitude value is out of bounds";
-                    latitude = -90;
+                    latitude = "-90";
                     calcAngle = false;
                 }
                 else { latitude = value; calcAngle = true; }
                 NotifyPropertyChanged("Latitude");
             }
         }
-        public double Longitude
+        public string Longitude
         {
             get { return longitude; }
             set
             {
-                if (value > 180)
+                if (value.Contains("ERR"))
+                {
+                    longitude = value; calcAngle = false;
+                }
+                else if (Double.Parse(value) > 180)
                 {
                     ErrorInfo = "longitude value is out of bounds";
-                    longitude = 180;
+                    longitude = "180";
                     calcAngle = false;
                 }
-                else if (value < -180)
+                else if (Double.Parse(value) < -180)
                 {
                     ErrorInfo = "longitude value is out of bounds";
-                    longitude = -180;
+                    longitude = "-180";
                     calcAngle = false;
                 }
                 else { longitude = value; calcAngle = true; }
@@ -469,15 +434,16 @@ namespace FlightSimulatorApp
         public string Location
         {
             get { return location; }
-            set { location = value; NotifyPropertyChanged("Location"); Console.WriteLine("Location: " + value); }
+            set { location = value; NotifyPropertyChanged("Location"); }
         }
-        public double Angle
+        public string Angle
         {
             get { return angle; }
             set
             {
                 angle = value;
                 NotifyPropertyChanged("Angle");
+                Console.WriteLine("Angle: " + value);
             }
         }
         public string ErrorInfo
@@ -515,14 +481,15 @@ namespace FlightSimulatorApp
 
         }
 
-        private double Normalize(double value)
+        private string Normalize(string value)
         {
+
             double min = -170, max = 170; //range of original joystick is [-170,170]
 
             //formula to normalize to [-1,1]
-            double retVal = 2 * ((value - min) / (max - min)) - 1;
+            double retVal = 2 * ((Double.Parse(value) - min) / (max - min)) - 1;
 
-            return retVal;
+            return retVal.ToString();
         }
 
         private double AngleFromCoordinate(double lat1, double long1, double lat2, double long2)

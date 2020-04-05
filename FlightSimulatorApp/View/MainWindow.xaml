@@ -86,7 +86,7 @@
 
         <!--Dashboard -->
         <Viewbox Grid.Row="0" Grid.Column="1" Grid.RowSpan="3" Margin="5" Width="450" VerticalAlignment="Top">
-            <Controls:Dashboard x:Name="dashboard" Width="350" Loaded="dashboard_Loaded"/>
+            <Controls:Dashboard x:Name="dashboard" Width="350"/>
         </Viewbox>
 
         <!--Joystick -->

@@ -59,11 +59,6 @@ namespace FlightSimulatorApp.View
             }
         }
 
-        private void dashboard_Loaded(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         public void UpdateUI(bool isConnected)
         {
             if (isConnected)
