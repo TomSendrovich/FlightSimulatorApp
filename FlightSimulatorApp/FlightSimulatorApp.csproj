@@ -124,9 +124,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="View\map-marker.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="View\airplane.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
