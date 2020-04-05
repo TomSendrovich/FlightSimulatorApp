@@ -55,7 +55,7 @@ namespace FlightSimulatorApp
             catch (SocketException e)
             {
                 Console.WriteLine("Error: " + e.Message);
-                ErrorInfo = "Error: " + e.Message;
+                ErrorInfo = "Error: Server cannot connect " + ip + ":" + port;
 
             }
         }
@@ -269,7 +269,7 @@ namespace FlightSimulatorApp
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
-                ErrorInfo = e.Message;
+                ErrorInfo = "Error: Connection was closed";
                 Disconnect();
                 return "ERR";
             }
