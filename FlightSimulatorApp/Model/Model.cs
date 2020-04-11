@@ -14,7 +14,7 @@ namespace FlightSimulatorApp
         const string VERTICAL_SPEED = "/gps_indicated-vertical-speed";
         const string GROUND_SPEED = "/gps_indicated-ground-speed-kt";
         const string AIR_SPEED = "/airspeed-indicator_indicated-speed-kt";
-        const string ALTITUDE = "/instrumentation/gps/indicated-altitude-ft";
+        const string ALTITUDE = "/gps_indicated-altitude-ft";
         const string ROLL = "/attitude-indicator_internal-roll-deg";
         const string PITCH = "/attitude-indicator_internal-pitch-deg";
         const string ALTIMETER = "/altimeter_indicated-altitude-ft";
