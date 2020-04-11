@@ -10,14 +10,14 @@ namespace FlightSimulatorApp
 {
     class Model : IModel
     {
-        const string HEADING = "/instrumentation/heading-indicator/indicated-heading-deg";
-        const string VERTICAL_SPEED = "/instrumentation/gps/indicated-vertical-speed";
-        const string GROUND_SPEED = "/instrumentation/gps/indicated-ground-speed-kt";
-        const string AIR_SPEED = "/instrumentation/airspeed-indicator/indicated-speed-kt";
+        const string HEADING = "/indicated-heading-deg";
+        const string VERTICAL_SPEED = "/gps_indicated-vertical-speed";
+        const string GROUND_SPEED = "/gps_indicated-ground-speed-kt";
+        const string AIR_SPEED = "/airspeed-indicator_indicated-speed-kt";
         const string ALTITUDE = "/instrumentation/gps/indicated-altitude-ft";
-        const string ROLL = "/instrumentation/attitude-indicator/internal-roll-deg";
-        const string PITCH = "/instrumentation/attitude-indicator/internal-pitch-deg";
-        const string ALTIMETER = "/instrumentation/altimeter/indicated-altitude-ft";
+        const string ROLL = "/attitude-indicator_internal-roll-deg";
+        const string PITCH = "/attitude-indicator_internal-pitch-deg";
+        const string ALTIMETER = "/altimeter_indicated-altitude-ft";
         const string THROTTLE = "/controls/engines/current-engine/throttle";
         const string AILERON = "/controls/flight/aileron";
         const string ELEVATOR = "/controls/flight/elevator";
