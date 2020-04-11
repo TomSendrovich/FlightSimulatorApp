@@ -1,10 +1,10 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Net.Sockets;
 using System.Threading;
-using System.Diagnostics;
-using System.Windows.Media;
 using System.Windows;
+using System.Windows.Media;
 
 namespace FlightSimulatorApp
 {

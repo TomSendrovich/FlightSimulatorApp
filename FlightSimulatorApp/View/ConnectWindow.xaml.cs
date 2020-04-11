@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Windows;
-using System.Text.RegularExpressions;
 using System.Configuration;
+using System.Text.RegularExpressions;
+using System.Windows;
 
 namespace FlightSimulatorApp.View
 {
@@ -35,7 +35,7 @@ namespace FlightSimulatorApp.View
             }
             else
             {
-                ((MainWindow)Application.Current.MainWindow).Connect(ip, Int32.Parse(port));                
+                ((MainWindow)Application.Current.MainWindow).Connect(ip, Int32.Parse(port));
                 this.Close();
             }
         }

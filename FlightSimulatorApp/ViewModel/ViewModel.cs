@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Windows.Media;
 using System.Windows;
+using System.Windows.Media;
 
 namespace FlightSimulatorApp
 {
